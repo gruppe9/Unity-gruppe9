@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class SelectTest : MonoBehaviour
 {
-    Vector3 PlaceClicked;
+    Vector3 placeClicked;
+    private bool isSelected = false;  
+    private float targetDistance;
     GameObject selectedUnit;
     GameObject otherSelectedUnit;
     string otherTeam;
     static SelectTest instance;
     public string team;
-    
+    private float distination;
     /// <summary>
     /// property for what allied unit is selected
     /// </summary>
@@ -25,7 +28,6 @@ public class SelectTest : MonoBehaviour
             selectedUnit = value;
         }
     }
-
     /// <summary>
     /// property for what enemy unit is selected
     /// </summary>
@@ -41,7 +43,6 @@ public class SelectTest : MonoBehaviour
             otherSelectedUnit = value;
         }
     }
-
     public static SelectTest Instance
     {
         get
@@ -56,6 +57,42 @@ public class SelectTest : MonoBehaviour
         set
         {
             instance = value;
+        }
+    }
+    public float Distination
+    {
+        get
+        {
+            return distination;
+        }
+
+        set
+        {
+            distination = value;
+        }
+    }
+    public float TargetDistance
+    {
+        get
+        {
+            return targetDistance;
+        }
+
+        set
+        {
+            targetDistance = value;
+        }
+    }
+    public bool IsSelected
+    {
+        get
+        {
+            return isSelected;
+        }
+
+        set
+        {
+            isSelected = value;
         }
     }
 
@@ -83,16 +120,25 @@ public class SelectTest : MonoBehaviour
                 if (hit.collider.gameObject.tag == team) // select unit from own team
                 {
                     if (selectedUnit != null)
+                    {
                         selectedUnit.GetComponent<Renderer>().material.color = Color.white;
+                        IsSelected = false;
+                    }
+
                     selectedUnit = hit.collider.gameObject;
+                    IsSelected = true;               
                     selectedUnit.GetComponent<Renderer>().material.color = Color.green;
                 }
 
-                if (hit.collider.gameObject.tag == otherTeam) // select unit from other team
+                if (hit.collider.gameObject.tag == otherTeam && selectedUnit != null) // select unit from other team
                 {
                     if (otherSelectedUnit != null)
+                    {
                         otherSelectedUnit.GetComponent<Renderer>().material.color = Color.white;
+                    }
+
                     otherSelectedUnit = hit.collider.gameObject;
+                    TargetDistance = Vector3.Distance(selectedUnit.transform.position, otherSelectedUnit.transform.position);
                     otherSelectedUnit.GetComponent<Renderer>().material.color = Color.red;
                 }
             }
@@ -101,4 +147,10 @@ public class SelectTest : MonoBehaviour
         {
         }
     }
+
+    public void DrawAttackRange()
+    {
+        //Handles.DrawSolidArc(selectedUnit.transform.position, selectedUnit.transform.up, -selectedUnit.transform.right, 180, selectedUnit.GetComponent<Stats>().AttackRange);
+    }
+
 }
