@@ -7,7 +7,9 @@ public class SelectTest : MonoBehaviour
     GameObject selectedUnit;
     GameObject otherSelectedUnit;
     string otherTeam;
+    static SelectTest instance;
     public string team;
+    
     /// <summary>
     /// property for what allied unit is selected
     /// </summary>
@@ -37,6 +39,23 @@ public class SelectTest : MonoBehaviour
         set
         {
             otherSelectedUnit = value;
+        }
+    }
+
+    public static SelectTest Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<SelectTest>();
+            }
+            return instance;
+        }
+
+        set
+        {
+            instance = value;
         }
     }
 
