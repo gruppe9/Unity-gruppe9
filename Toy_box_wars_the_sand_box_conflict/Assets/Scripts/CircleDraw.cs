@@ -35,16 +35,16 @@ public class CircleDraw : MonoBehaviour
 
     void Update()
     {
-        if (GetComponent<Stats>().IsSeleccted)
+        if (gameObject != null && GetComponent<UnitStats>().IsSeleccted)
         {
-            radius = gameObject.GetComponent<Stats>().AttackRange;
+            radius = gameObject.GetComponent<UnitStats>().AttackRange;
         }
         else
         {
             radius = 0;
         }
 
-        if (gameObject.GetComponent<Stats>().tag == "team 1")
+        if (gameObject.GetComponent<UnitStats>().tag == "team 1")
         {
             Vector3 pos;
             float theta = 0f;

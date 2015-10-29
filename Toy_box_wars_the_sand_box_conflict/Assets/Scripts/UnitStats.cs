@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Stats : MonoBehaviour {
+public class UnitStats : MonoBehaviour {
 
     [SerializeField]
     private int damage;
@@ -10,9 +10,8 @@ public class Stats : MonoBehaviour {
     [SerializeField]
     private float attackRange; 
     private int id;
-    private static Stats instance;
+    private static UnitStats instance;
     private bool isSeleccted;
-
 
 
     public int Damage
@@ -55,13 +54,13 @@ public class Stats : MonoBehaviour {
             attackRange = value;
         }
     }
-    public static Stats Instance
+    public static UnitStats Instance
     {
         get
         {
             if(instance == null)
             {
-                instance = FindObjectOfType<Stats>();
+                instance = FindObjectOfType<UnitStats>();
             }
             return instance;
         }
@@ -82,9 +81,9 @@ public class Stats : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        damage = 10;
-        health = 100;
-        attackRange = 5f;
+        //damage = 10;
+        //health = 100;
+        //attackRange = 5f;
         isSeleccted = false;
 	}
 	

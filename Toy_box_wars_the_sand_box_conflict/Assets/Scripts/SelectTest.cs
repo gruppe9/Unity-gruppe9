@@ -123,11 +123,11 @@ public class SelectTest : MonoBehaviour
                     if (selectedUnit != null)
                     {
                         selectedUnit.GetComponent<Renderer>().material.color = Color.white;
-                        selectedUnit.GetComponent<Stats>().IsSeleccted = false;
+                        selectedUnit.GetComponent<UnitStats>().IsSeleccted = false;
                     }
                     
                     selectedUnit = hit.collider.gameObject;
-                    selectedUnit.GetComponent<Stats>().IsSeleccted = true;
+                    selectedUnit.GetComponent<UnitStats>().IsSeleccted = true;
                     selectedUnit.GetComponent<Renderer>().material.color = Color.green;
                 }
 
@@ -135,7 +135,7 @@ public class SelectTest : MonoBehaviour
                 {
                     if (otherSelectedUnit != null)
                     {
-                        otherSelectedUnit.GetComponent<Renderer>().material.color = Color.white;
+                        otherSelectedUnit.GetComponent<Renderer>().material.color = Color.cyan;
                     }
 
                     otherSelectedUnit = hit.collider.gameObject;

@@ -4,12 +4,7 @@ using System.Collections;
 public class AttackTest : MonoBehaviour {
 
 
-    
-	// Use this for initialization
-	void Start ()
-    {
-
-	}
+   
 	
 	// Update is called once per frame
 	void Update ()
@@ -19,16 +14,16 @@ public class AttackTest : MonoBehaviour {
     public void DealDamage()
     {
         if (SelectTest.Instance.SelectedUnit != null && SelectTest.Instance.OtherSelectedUnit != null)
-        {
-            
-            if(SelectTest.Instance.TargetDistance <= SelectTest.Instance.OtherSelectedUnit.GetComponent<Stats>().AttackRange)
+        {            
+            if(SelectTest.Instance.TargetDistance <= SelectTest.Instance.SelectedUnit.GetComponent<UnitStats>().AttackRange)
             {
-                SelectTest.Instance.OtherSelectedUnit.GetComponent<Stats>().Health -= SelectTest.Instance.SelectedUnit.GetComponent<Stats>().Damage;
-                if (SelectTest.Instance.OtherSelectedUnit.GetComponent<Stats>().Health <= 0)
+                SelectTest.Instance.OtherSelectedUnit.GetComponent<UnitStats>().Health -= SelectTest.Instance.SelectedUnit.GetComponent<UnitStats>().Damage;
+                Debug.Log("Attack done!");
+                if (SelectTest.Instance.OtherSelectedUnit.GetComponent<UnitStats>().Health <= 0)
                 {
                     Destroy(SelectTest.Instance.OtherSelectedUnit);
-                }
-                Debug.Log("Attack done!");
+                    Debug.Log("Target destroyed!");
+                }                
             }
            
             
