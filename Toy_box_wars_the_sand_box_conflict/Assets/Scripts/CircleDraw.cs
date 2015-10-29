@@ -9,18 +9,7 @@ public class CircleDraw : MonoBehaviour
     [SerializeField]
     private float radius;
     LineRenderer lineRenderer;
-    public float Radius
-    {
-        get
-        {
-            return radius;
-        }
-
-        set
-        {
-            radius = value;
-        }
-    }
+    GameObject tempObject;
 
     void Awake()
     {
@@ -39,12 +28,27 @@ public class CircleDraw : MonoBehaviour
 
     }
 
+    void OnMouseUp()
+    {
+        
+    }
+
     void Update()
     {
-        if (SelectTest.Instance.SelectedUnit != null && SelectTest.Instance.SelectedUnit.GetComponent<Stats>().IsSelected)
+        if (GetComponent<Stats>().IsSeleccted)
+        {
+            radius = gameObject.GetComponent<Stats>().AttackRange;
+        }
+        else
+        {
+            radius = 0;
+        }
+
+        if (gameObject.GetComponent<Stats>().tag == "team 1")
         {
             Vector3 pos;
             float theta = 0f;
+            
             for (int i = 0; i < size; i++)
             {
                 theta += (2.0f * Mathf.PI * theta_scale);
@@ -54,8 +58,8 @@ public class CircleDraw : MonoBehaviour
                 z += gameObject.transform.position.z;
                 pos = new Vector3(x, 0, z);
                 lineRenderer.SetPosition(i, pos);
-                
             }
         }
+
     }
 }

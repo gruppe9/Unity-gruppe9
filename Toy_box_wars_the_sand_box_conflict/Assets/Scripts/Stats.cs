@@ -10,8 +10,8 @@ public class Stats : MonoBehaviour {
     [SerializeField]
     private float attackRange; 
     private int id;
-    private bool isSelected;
-    private static Stats instance; 
+    private static Stats instance;
+    private bool isSeleccted;
 
 
 
@@ -55,18 +55,6 @@ public class Stats : MonoBehaviour {
             attackRange = value;
         }
     }
-    public bool IsSelected
-    {
-        get
-        {
-            return isSelected;
-        }
-
-        set
-        {
-            isSelected = value;
-        }
-    }
     public static Stats Instance
     {
         get
@@ -78,6 +66,18 @@ public class Stats : MonoBehaviour {
             return instance;
         }
     }
+    public bool IsSeleccted
+    {
+        get
+        {
+            return isSeleccted;
+        }
+
+        set
+        {
+            isSeleccted = value;
+        }
+    }
 
     // Use this for initialization
     void Start ()
@@ -85,7 +85,7 @@ public class Stats : MonoBehaviour {
         damage = 10;
         health = 100;
         attackRange = 5f;
-        IsSelected = false;
+        isSeleccted = false;
 	}
 	
 	// Update is called once per frame

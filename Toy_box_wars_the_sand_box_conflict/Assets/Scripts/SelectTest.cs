@@ -8,10 +8,12 @@ public class SelectTest : MonoBehaviour
     private float targetDistance;
     private GameObject selectedUnit;
     private GameObject otherSelectedUnit;
+    private GameObject previousSelectedUnit;
     private string otherTeam;
     private static SelectTest instance;
     public string team;
     private float distination;
+
     /// <summary>
     /// property for what allied unit is selected
     /// </summary>
@@ -82,6 +84,18 @@ public class SelectTest : MonoBehaviour
             targetDistance = value;
         }
     }
+    public GameObject PreviousSelectedUnit
+    {
+        get
+        {
+            return previousSelectedUnit;
+        }
+
+        set
+        {
+            previousSelectedUnit = value;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -97,7 +111,7 @@ public class SelectTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray destPoint = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -109,12 +123,11 @@ public class SelectTest : MonoBehaviour
                     if (selectedUnit != null)
                     {
                         selectedUnit.GetComponent<Renderer>().material.color = Color.white;
-                        selectedUnit.GetComponent<Stats>().IsSelected = false;
+                        selectedUnit.GetComponent<Stats>().IsSeleccted = false;
                     }
-
+                    
                     selectedUnit = hit.collider.gameObject;
-                    selectedUnit.GetComponent<CircleDraw>().Radius = selectedUnit.GetComponent<Stats>().AttackRange;
-                    selectedUnit.GetComponent<Stats>().IsSelected = true;
+                    selectedUnit.GetComponent<Stats>().IsSeleccted = true;
                     selectedUnit.GetComponent<Renderer>().material.color = Color.green;
                 }
 
