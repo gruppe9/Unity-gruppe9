@@ -4,13 +4,12 @@ using UnityEditor;
 
 public class SelectTest : MonoBehaviour
 {
-    Vector3 placeClicked;
-    private bool isSelected = false;  
+    private Vector3 placeClicked;
     private float targetDistance;
-    GameObject selectedUnit;
-    GameObject otherSelectedUnit;
-    string otherTeam;
-    static SelectTest instance;
+    private GameObject selectedUnit;
+    private GameObject otherSelectedUnit;
+    private string otherTeam;
+    private static SelectTest instance;
     public string team;
     private float distination;
     /// <summary>
@@ -83,18 +82,6 @@ public class SelectTest : MonoBehaviour
             targetDistance = value;
         }
     }
-    public bool IsSelected
-    {
-        get
-        {
-            return isSelected;
-        }
-
-        set
-        {
-            isSelected = value;
-        }
-    }
 
     // Use this for initialization
     void Start()
@@ -122,11 +109,12 @@ public class SelectTest : MonoBehaviour
                     if (selectedUnit != null)
                     {
                         selectedUnit.GetComponent<Renderer>().material.color = Color.white;
-                        IsSelected = false;
+                        selectedUnit.GetComponent<Stats>().IsSelected = false;
                     }
 
                     selectedUnit = hit.collider.gameObject;
-                    IsSelected = true;               
+                    selectedUnit.GetComponent<CircleDraw>().Radius = selectedUnit.GetComponent<Stats>().AttackRange;
+                    selectedUnit.GetComponent<Stats>().IsSelected = true;
                     selectedUnit.GetComponent<Renderer>().material.color = Color.green;
                 }
 
@@ -147,10 +135,4 @@ public class SelectTest : MonoBehaviour
         {
         }
     }
-
-    public void DrawAttackRange()
-    {
-        //Handles.DrawSolidArc(selectedUnit.transform.position, selectedUnit.transform.up, -selectedUnit.transform.right, 180, selectedUnit.GetComponent<Stats>().AttackRange);
-    }
-
 }
