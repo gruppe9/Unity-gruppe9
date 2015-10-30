@@ -55,8 +55,8 @@ public class CircleDraw : MonoBehaviour
                 float x = radius * Mathf.Cos(theta);
                 float z = radius * Mathf.Sin(theta);
                 x += gameObject.transform.position.x;
-                z += gameObject.transform.position.z;
-                pos = new Vector3(x, 0, z);
+                z += gameObject.transform.position.y;
+                pos = new Vector3(x, z, -.75f); // z er y
                 lineRenderer.SetPosition(i, pos);
             }
         }

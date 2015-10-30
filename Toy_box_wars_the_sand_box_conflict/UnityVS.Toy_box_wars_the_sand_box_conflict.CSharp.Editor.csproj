@@ -128,28 +128,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UnityVS.Toy_box_wars_the_sand_box_conflict.CSharp.Plugins.csproj">
-      <Project>{E8331744-96FA-B202-4DA5-B83ADF94DBA5}</Project>
-      <Name>UnityVS.Toy_box_wars_the_sand_box_conflict.CSharp.Plugins</Name>
+    <ProjectReference Include="UnityVS.Toy_box_wars_the_sand_box_conflict.CSharp.csproj">
+      <Project>{19DCF6F6-9F2B-3F98-BCE3-CE68A3E214F9}</Project>
+      <Name>UnityVS.Toy_box_wars_the_sand_box_conflict.CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
-    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
-    <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
-    <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
+    <None Include="Assets\Fonts\batman_beat_the_hel\README.TXT" />
+    <None Include="Assets\Fonts\milano_traffic\READ ME-MILANOTRAFFIC.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>
