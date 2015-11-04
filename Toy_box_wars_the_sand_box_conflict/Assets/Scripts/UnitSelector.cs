@@ -43,6 +43,7 @@ public class UnitSelector : MonoBehaviour
                     if (Physics.Raycast(mouseClickPosition, out hit))
                     {
                         AttackMode();
+                        playerComponent.ConfirmButton.SetActive(true);
                     }
                     break;
                 case PlayerAction.move:

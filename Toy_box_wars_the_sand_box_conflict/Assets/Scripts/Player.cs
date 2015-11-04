@@ -157,6 +157,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    public GameObject ConfirmButton
+    {
+        get
+        {
+            return confirmButton;
+        }
+    }
+
 
     #endregion
 
@@ -259,7 +267,6 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.attack;
         moveButton.SetActive(false);
         cancelButton.SetActive(true);
-        confirmButton.SetActive(true);
         playerMode = PlayerAction.attack;
     }
 
