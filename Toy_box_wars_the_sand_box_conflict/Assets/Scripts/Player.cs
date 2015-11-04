@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
 
     private GameObject selectedUnit;
     private GameObject selectedOther;
+    private GameObject latestSelected;
     private Teams currentTeam;
     private ButtonAction btnAction;
     private int team1Army;
     private int team2Army;
     public Vector3 tempDestination; // temporary variable for movement testing. Should be removed later.
+    private PlayerAction playerMode;
 
 
     #region button refs
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour
         set
         {
             selectedUnit = value;
+
         }
     }
 
@@ -62,9 +65,25 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// Get/Set property for the latest selected unit (good for showing ui)
+    /// </summary>
+    public GameObject LatestSelected
+    {
+        get
+        {
+            return latestSelected;
+        }
+
+        set
+        {
+            latestSelected = value;
+        }
+    }
+
+    /// <summary>
     /// Get/Set property for which team has the current team
     /// </summary>
-    internal Teams CurrentTeam
+    public Teams CurrentTeam
     {
         get
         {
@@ -103,6 +122,41 @@ public class Player : MonoBehaviour
         }
     }
 
+    public PlayerAction PlayerMode
+    {
+        get
+        {
+            return playerMode;
+        }
+    }
+
+    public GameObject MoveButton
+    {
+        get
+        {
+            return moveButton;
+        }
+
+        set
+        {
+            moveButton = value;
+        }
+    }
+
+    public GameObject AttackButton
+    {
+        get
+        {
+            return attackButton;
+        }
+
+        set
+        {
+            attackButton = value;
+        }
+    }
+
+
     #endregion
 
 
@@ -115,6 +169,9 @@ public class Player : MonoBehaviour
         currentTeam = Teams.team1;
         team1Army = 0;
         team2Army = 1;
+        playerMode = PlayerAction.normal;
+        attackButton.SetActive(false);
+        moveButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -133,7 +190,6 @@ public class Player : MonoBehaviour
             case Teams.team1:
                 foreach (GameObject item in ArmySaves.Armies[ArmySaves.team[team1Army]])
                 {
-                    
                     // reset ap til initialAP
                     item.GetComponent<UnitProperties>().ActionPoints = item.GetComponent<UnitProperties>().InitialAP;
                 }
@@ -145,7 +201,7 @@ public class Player : MonoBehaviour
                     // reset ap til initialAP
                     item.GetComponent<UnitProperties>().ActionPoints = item.GetComponent<UnitProperties>().InitialAP;
                 }
-                currentTeam = Teams.team2;
+                currentTeam = Teams.team1;
                 break;
             default:
                 break;
@@ -167,37 +223,50 @@ public class Player : MonoBehaviour
     {
         UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
         UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
-        if (selectedUnit != null && Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position) < sProp.AttackRange)
+        float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
+        if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
             // attack stuff when in attack range
             osProp.Health -= sProp.Damage;
             sProp.ActionPoints -= sProp.AttackCost;
+
+            if (osProp.Health <= 0)
+            {
+                Destroy(selectedOther);
+            }
         }
     }
 
     #region Buttons
-    public void MoveButton()
+    public void MoveButtonAction()
     {
         btnAction = ButtonAction.move;
+        playerMode = PlayerAction.move;
         cancelButton.SetActive(true);
         confirmButton.SetActive(true);
+        attackButton.SetActive(false);
     }
 
-    public void AttackButton()
+    public void AttackButtonAction()
     {
         btnAction = ButtonAction.attack;
+        moveButton.SetActive(false);
         cancelButton.SetActive(true);
         confirmButton.SetActive(true);
+        playerMode = PlayerAction.attack;
     }
 
-    public void CancelButton()
+    public void CancelButtonAction()
     {
         btnAction = ButtonAction.none;
+        playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
         confirmButton.SetActive(false);
+        attackButton.SetActive(true);
+        moveButton.SetActive(true);
     }
 
-    public void ConfirmButton()
+    public void ConfirmButtonAction()
     {
         switch (btnAction)
         {
@@ -214,14 +283,21 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
         confirmButton.SetActive(false);
+        playerMode = PlayerAction.normal;
+        attackButton.SetActive(true);
+        moveButton.SetActive(true);
     }
 
-    public void EndTurnButton()
+    public void EndTurnButtonAction()
     {
         btnAction = ButtonAction.none;
+        playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
         confirmButton.SetActive(false);
+        moveButton.SetActive(false);
+        attackButton.SetActive(false);
         TurnController();
+        GetComponent<UnitSelector>().DeselectUnitAll();
     }
     #endregion
 

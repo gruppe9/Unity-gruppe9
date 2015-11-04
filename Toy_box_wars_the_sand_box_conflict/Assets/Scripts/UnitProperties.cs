@@ -16,6 +16,8 @@ public class UnitProperties : MonoBehaviour {
     protected int initialAP;
     [SerializeField]
     protected int attackCost;
+    [SerializeField]
+    protected int movementCost;
     #endregion
 
     #region Properties
@@ -94,6 +96,19 @@ public class UnitProperties : MonoBehaviour {
         set
         {
             attackCost = value;
+        }
+    }
+
+    public int MovementCost
+    {
+        get
+        {
+            return movementCost;
+        }
+
+        set
+        {
+            movementCost = value;
         }
     }
     #endregion

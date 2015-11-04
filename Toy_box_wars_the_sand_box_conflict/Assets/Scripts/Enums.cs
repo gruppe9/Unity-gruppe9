@@ -16,3 +16,10 @@ public enum ButtonAction
     move,
     attack
 }
+
+public enum PlayerAction
+{
+    normal,
+    attack,
+    move
+}
