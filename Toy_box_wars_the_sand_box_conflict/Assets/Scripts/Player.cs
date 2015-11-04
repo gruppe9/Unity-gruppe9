@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     private GameObject selectedOther;
     private Teams currentTeam;
     private ButtonAction btnAction;
-    
+    private int team1Army;
+    private int team2Army;
+    public Vector3 tempDestination; // temporary variable for movement testing. Should be removed later.
+
 
     #region button refs
     [SerializeField]
@@ -74,8 +77,34 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int Team1Army
+    {
+        get
+        {
+            return team1Army;
+        }
+
+        set
+        {
+            team1Army = value;
+        }
+    }
+
+    public int Team2Army
+    {
+        get
+        {
+            return team2Army;
+        }
+
+        set
+        {
+            team2Army = value;
+        }
+    }
+
     #endregion
-    
+
 
     // Use this for initialization
     void Start()
@@ -83,7 +112,9 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
         confirmButton.SetActive(false);
-        
+        currentTeam = Teams.team1;
+        team1Army = 0;
+        team2Army = 1;
     }
 
     // Update is called once per frame
@@ -100,20 +131,21 @@ public class Player : MonoBehaviour
         switch (currentTeam)
         {
             case Teams.team1:
-                foreach (GameObject item in ArmySaves.Armies[ArmySaves.team[0]])
+                foreach (GameObject item in ArmySaves.Armies[ArmySaves.team[team1Army]])
                 {
+                    
                     // reset ap til initialAP
-
-                    currentTeam = Teams.team2;
+                    item.GetComponent<UnitProperties>().ActionPoints = item.GetComponent<UnitProperties>().InitialAP;
                 }
+                currentTeam = Teams.team2;
                 break;
             case Teams.team2:
-                foreach (GameObject item in ArmySaves.Armies[ArmySaves.team[0]])
+                foreach (GameObject item in ArmySaves.Armies[ArmySaves.team[team2Army]])
                 {
                     // reset ap til initialAP
-
-                    currentTeam = Teams.team2;
+                    item.GetComponent<UnitProperties>().ActionPoints = item.GetComponent<UnitProperties>().InitialAP;
                 }
+                currentTeam = Teams.team2;
                 break;
             default:
                 break;
@@ -133,10 +165,13 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Attack()
     {
-        if (selectedUnit != null && Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position) < selectedUnit.GetComponent<UnitProperties>().AttackRange);
+        UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
+        UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
+        if (selectedUnit != null && Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position) < sProp.AttackRange)
         {
             // attack stuff when in attack range
-
+            osProp.Health -= sProp.Damage;
+            sProp.ActionPoints -= sProp.AttackCost;
         }
     }
 

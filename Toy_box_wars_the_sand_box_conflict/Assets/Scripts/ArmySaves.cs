@@ -13,6 +13,10 @@ static class ArmySaves
             if (armies == null)
             {
                 armies = new List<GameObject>[4];
+                for (int i = 0; i < 4; i++)
+                {
+                    armies[i] = new List<GameObject>();
+                }
             }
             return armies;
         }

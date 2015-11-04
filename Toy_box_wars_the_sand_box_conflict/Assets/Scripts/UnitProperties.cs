@@ -12,6 +12,10 @@ public class UnitProperties : MonoBehaviour {
     protected int actionPoints;
     [SerializeField]
     protected float attackRange;
+    [SerializeField]
+    protected int initialAP;
+    [SerializeField]
+    protected int attackCost;
     #endregion
 
     #region Properties
@@ -64,6 +68,32 @@ public class UnitProperties : MonoBehaviour {
         set
         {
             attackRange = value;
+        }
+    }
+
+    public int InitialAP
+    {
+        get
+        {
+            return initialAP;
+        }
+
+        set
+        {
+            initialAP = value;
+        }
+    }
+
+    public int AttackCost
+    {
+        get
+        {
+            return attackCost;
+        }
+
+        set
+        {
+            attackCost = value;
         }
     }
     #endregion
