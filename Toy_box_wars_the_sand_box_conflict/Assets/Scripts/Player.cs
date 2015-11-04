@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private int team2Army;
     public Vector3 tempDestination; // temporary variable for movement testing. Should be removed later.
     private PlayerAction playerMode;
+    private AudioSource sound;
 
 
     #region button refs
@@ -163,6 +164,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
         confirmButton.SetActive(false);
@@ -227,8 +229,13 @@ public class Player : MonoBehaviour
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
             // attack stuff when in attack range
+            sound.Play();
+            Debug.Log("Sound just played!");
+
             osProp.Health -= sProp.Damage;
             sProp.ActionPoints -= sProp.AttackCost;
+
+
 
             if (osProp.Health <= 0)
             {
