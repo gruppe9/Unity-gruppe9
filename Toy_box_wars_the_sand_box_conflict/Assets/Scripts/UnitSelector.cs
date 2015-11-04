@@ -4,6 +4,8 @@ using System.Collections;
 public class UnitSelector : MonoBehaviour
 {
     Player playerComponent;
+    RaycastHit hit;
+    Ray mouseClickPosition;
 
     // Use this for initialization
     void Start()
@@ -17,14 +19,31 @@ public class UnitSelector : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // raycasting stuff
+            mouseClickPosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // brug playerComponent.SelectedUnit til at gemme referencen til den valgte unit som også har samme team som
-            // playerComponent.CurrentTeam.
-
-            // brug playerComponent.SelectedOther til at gemme referencen til den valgte unit som ikke har samme team som
-            // playerComponent.CurrentTeam.
-
-
+            if(Physics.Raycast(mouseClickPosition, out hit))
+            {
+                //Selects the unit as the players selected unit, if the given unit isn't already selected.
+                if (hit.collider.tag == playerComponent.CurrentTeam.ToString() && hit.collider.gameObject != playerComponent.SelectedUnit)
+                {
+                    playerComponent.SelectedUnit = hit.collider.gameObject;
+                }
+                //Selects the unit as the selected enemy unit, if the given unit isn't already selected.
+                else if (hit.collider.tag != playerComponent.CurrentTeam.ToString() && hit.collider.gameObject != playerComponent.SelectedOther)
+                {
+                    playerComponent.SelectedOther = hit.collider.gameObject;
+                }
+                //Deselects the current enemy unit, if it is already selected when clicked upon.
+                else if (hit.collider.tag != playerComponent.CurrentTeam.ToString() && hit.collider.gameObject == playerComponent.SelectedOther)
+                {
+                    playerComponent.SelectedOther = null;
+                }
+                //Deselects the current player unit, if it is already selected when clicked upon.
+                else if (hit.collider.tag == playerComponent.CurrentTeam.ToString() && hit.collider.gameObject == playerComponent.SelectedUnit)
+                {
+                    playerComponent.SelectedUnit = null;
+                }
+            }
         }
     }
 }
