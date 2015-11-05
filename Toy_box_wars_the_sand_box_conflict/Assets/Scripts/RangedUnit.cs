@@ -24,7 +24,7 @@ public class RangedUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
-        health = 10;
+        health = 100;
         damage = 10;
         actionPoints = 5;
         attackRange = 15;
@@ -32,7 +32,11 @@ public class RangedUnit : UnitProperties
 
     public override void Attack(UnitProperties target)
     {
-        
+        target.Health -= damage;
+
+        StartCoroutine(PlaySoundTest());
+
+        actionPoints -= attackCost;
     }
     public override void Move()
     {
@@ -41,6 +45,10 @@ public class RangedUnit : UnitProperties
     }
     public override IEnumerator PlaySoundTest()
     {
+        _audio.clip = attackBuildUpSFX;
+        _audio.Play();
         yield return new WaitForSeconds(_audio.clip.length);
+        _audio.clip = attackSoundSFX;
+        _audio.Play();
     }
 }

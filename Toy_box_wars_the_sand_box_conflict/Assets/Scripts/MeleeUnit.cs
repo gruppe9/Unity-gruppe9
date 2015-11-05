@@ -28,7 +28,7 @@ public class MeleeUnit : UnitProperties {
 
         StartCoroutine(PlaySoundTest());
 
-        actionPoints -= attackCost;         
+        actionPoints -= attackCost;
     }
 
     public override void Move()

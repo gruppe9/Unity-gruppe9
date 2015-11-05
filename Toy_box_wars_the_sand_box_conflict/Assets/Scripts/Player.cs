@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public Vector3 tempDestination; // temporary variable for movement testing. Should be removed later.
     private PlayerAction playerMode;
 
-    #region button refs
+    #region Button refs
     [SerializeField]
     private GameObject moveButton;
     [SerializeField]
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     private GameObject cancelButton;
     #endregion
 
-     #region Properties
+    #region Properties
 
     /// <summary>
     /// Get/Set property for selected unit
@@ -150,9 +150,7 @@ public class Player : MonoBehaviour
             confirmButton = value;
         }
     }
-
     #endregion
-
 
     // Use this for initialization
     void Start()
@@ -201,7 +199,6 @@ public class Player : MonoBehaviour
     /// </summary>
     private void MovementHandler()
     {
-
     }
 
     /// <summary>
@@ -211,27 +208,28 @@ public class Player : MonoBehaviour
     {
         UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
         UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
+        //The distance between selectedunit and selectedother
         float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
+
+        //When player has selected a friendly unit and it's range is less than the distance between the target and the unit. 
+        //And the unit's actionpoints is greater than the cost of attacking - then an attack is possible.
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
-            // attack stuff when in attack range           
-
+            //Selectedunit attackting target/selectedOther
             sProp.Attack(osProp);
 
-            //osProp.Health -= sProp.Damage;
-            //sProp.ActionPoints -= sProp.AttackCost   
-
+            //If the enemy unit has 0 or less health the unit is destroyed from the game. 
             if (osProp.Health <= 0)
             {
                 Destroy(selectedOther);
             }
         }
     }
- 
-
-
 
     #region Buttons
+    /// <summary>
+    /// What happens when the MoveButton is pressed
+    /// </summary>
     public void MoveButtonAction()
     {
         btnAction = ButtonAction.move;
@@ -241,6 +239,9 @@ public class Player : MonoBehaviour
         attackButton.SetActive(false);
     }
 
+    /// <summary>
+    /// What happens when the AttackButton is pressed
+    /// </summary>
     public void AttackButtonAction()
     {
         btnAction = ButtonAction.attack;
@@ -250,6 +251,9 @@ public class Player : MonoBehaviour
         playerMode = PlayerAction.attack;
     }
 
+    /// <summary>
+    /// What happens when the CancelButton is pressed
+    /// </summary>
     public void CancelButtonAction()
     {
         btnAction = ButtonAction.none;
@@ -260,6 +264,9 @@ public class Player : MonoBehaviour
         moveButton.SetActive(true);
     }
 
+    /// <summary>
+    /// What happens when the ConfirmButton is pressed
+    /// </summary>
     public void ConfirmButtonAction()
     {
         switch (btnAction)
@@ -282,6 +289,9 @@ public class Player : MonoBehaviour
         moveButton.SetActive(true);
     }
 
+    /// <summary>
+    /// What happens when the EndTurnButton is pressed
+    /// </summary>
     public void EndTurnButtonAction()
     {
         btnAction = ButtonAction.none;
