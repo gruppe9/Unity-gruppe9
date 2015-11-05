@@ -165,6 +165,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    public AudioSource Sound
+    {
+        get
+        {
+            return sound;
+        }
+
+        set
+        {
+            sound = value;
+        }
+    }
+
 
     #endregion
 
@@ -237,13 +250,11 @@ public class Player : MonoBehaviour
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
             // attack stuff when in attack range
-            sound.Play();
-            Debug.Log("Sound just played!");
+            //sound.Play();
+            //Debug.Log("Sound just played!");
 
             osProp.Health -= sProp.Damage;
             sProp.ActionPoints -= sProp.AttackCost;
-
-
 
             if (osProp.Health <= 0)
             {
