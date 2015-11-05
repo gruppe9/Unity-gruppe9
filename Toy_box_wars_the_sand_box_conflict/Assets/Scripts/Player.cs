@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 
     private GameObject selectedUnit;
     private GameObject selectedOther;
+    private GameObject latestSelected;
     private Teams currentTeam;
     private ButtonAction btnAction;
     private int team1Army;
@@ -64,6 +65,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get/Set property for the latest selected unit (good for showing ui)
+    /// </summary>
+    public GameObject LatestSelected
+    {
+        get
+        {
+            return latestSelected;
+        }
+
+        set
+        {
+            latestSelected = value;
+        }
+    }
 
     /// <summary>
     /// Get/Set property for which team has the current team
