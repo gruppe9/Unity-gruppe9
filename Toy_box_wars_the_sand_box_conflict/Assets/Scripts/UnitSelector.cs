@@ -6,6 +6,7 @@ public class UnitSelector : MonoBehaviour
     private Player playerComponent;
     private RaycastHit hit;
     private Ray mouseClickPosition;
+    private Ray touchPosition;
 
     // Use this for initialization
     void Start()
@@ -26,27 +27,28 @@ public class UnitSelector : MonoBehaviour
     }
     private void PlayerActionSwitchCase()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             // raycasting stuff
-            mouseClickPosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+            touchPosition = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
             switch (playerComponent.PlayerMode)
             {
                 case PlayerAction.normal:
-                    if (Physics.Raycast(mouseClickPosition, out hit))
+                    if (Physics.Raycast(touchPosition, out hit))
                     {
                         SelectUnit();
                     }
                     break;
                 case PlayerAction.attack:
-                    if (Physics.Raycast(mouseClickPosition, out hit))
+                    if (Physics.Raycast(touchPosition, out hit))
                     {
                         AttackMode();
+                        playerComponent.ConfirmButton.SetActive(true);
                     }
                     break;
                 case PlayerAction.move:
-                    if (Physics.Raycast(mouseClickPosition, out hit))
+                    if (Physics.Raycast(touchPosition, out hit))
                     {
                         MoveMode();
                     }
