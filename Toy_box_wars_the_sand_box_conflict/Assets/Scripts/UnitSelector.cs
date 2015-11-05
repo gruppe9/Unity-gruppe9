@@ -27,10 +27,10 @@ public class UnitSelector : MonoBehaviour
     }
     private void PlayerActionSwitchCase()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.GetMouseButtonDown(0))
         {
             // raycasting stuff
-            touchPosition = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            touchPosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             switch (playerComponent.PlayerMode)
             {

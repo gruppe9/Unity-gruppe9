@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
     private PlayerAction playerMode;
     private AudioSource sound;
 
+    [SerializeField]
+    private AudioClip shot;
+    [SerializeField]
+    private AudioClip gunCock;
+
 
     #region button refs
     [SerializeField]
@@ -163,21 +168,12 @@ public class Player : MonoBehaviour
         {
             return confirmButton;
         }
-    }
-
-    public AudioSource Sound
-    {
-        get
-        {
-            return sound;
-        }
 
         set
         {
-            sound = value;
+            confirmButton = value;
         }
     }
-
 
     #endregion
 
@@ -188,7 +184,7 @@ public class Player : MonoBehaviour
         sound = GetComponent<AudioSource>();
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         currentTeam = Teams.team1;
         team1Army = 0;
         team2Army = 1;
@@ -250,11 +246,12 @@ public class Player : MonoBehaviour
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
             // attack stuff when in attack range
-            //sound.Play();
-            //Debug.Log("Sound just played!");
+            StartCoroutine(PlaySoundTest());
 
             osProp.Health -= sProp.Damage;
             sProp.ActionPoints -= sProp.AttackCost;
+
+
 
             if (osProp.Health <= 0)
             {
@@ -262,6 +259,18 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private IEnumerator PlaySoundTest()
+    {
+        sound.clip = gunCock;
+        sound.Play();
+        Debug.Log("Gun cock just played!");
+        yield return new WaitForSeconds(sound.clip.length);
+        sound.clip = shot;
+        sound.Play();
+        Debug.Log("Gun shot just played!"); ;
+    }
+
+
 
     #region Buttons
     public void MoveButtonAction()
@@ -269,7 +278,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.move;
         playerMode = PlayerAction.move;
         cancelButton.SetActive(true);
-        confirmButton.SetActive(true);
+        ConfirmButton.SetActive(true);
         attackButton.SetActive(false);
     }
 
@@ -278,6 +287,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.attack;
         moveButton.SetActive(false);
         cancelButton.SetActive(true);
+        ConfirmButton.SetActive(true);
         playerMode = PlayerAction.attack;
     }
 
@@ -286,7 +296,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         attackButton.SetActive(true);
         moveButton.SetActive(true);
     }
@@ -307,7 +317,7 @@ public class Player : MonoBehaviour
 
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         playerMode = PlayerAction.normal;
         attackButton.SetActive(true);
         moveButton.SetActive(true);
@@ -318,7 +328,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         moveButton.SetActive(false);
         attackButton.SetActive(false);
         TurnController();
