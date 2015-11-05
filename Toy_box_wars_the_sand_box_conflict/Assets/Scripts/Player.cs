@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
     private PlayerAction playerMode;
     private AudioSource sound;
 
+    [SerializeField]
+    private AudioClip shot;
+    [SerializeField]
+    private AudioClip gunCock;
+
 
     #region button refs
     [SerializeField]
@@ -229,8 +234,7 @@ public class Player : MonoBehaviour
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
             // attack stuff when in attack range
-            sound.Play();
-            Debug.Log("Sound just played!");
+            StartCoroutine(PlaySoundTest());
 
             osProp.Health -= sProp.Damage;
             sProp.ActionPoints -= sProp.AttackCost;
@@ -243,6 +247,18 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private IEnumerator PlaySoundTest()
+    {
+        sound.clip = gunCock;
+        sound.Play();
+        Debug.Log("Gun cock just played!");
+        yield return new WaitForSeconds(sound.clip.length);
+        sound.clip = shot;
+        sound.Play();
+        Debug.Log("Gun shot just played!"); ;
+    }
+
+
 
     #region Buttons
     public void MoveButtonAction()
