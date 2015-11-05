@@ -162,6 +162,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    public GameObject ConfirmButton
+    {
+        get
+        {
+            return confirmButton;
+        }
+
+        set
+        {
+            confirmButton = value;
+        }
+    }
 
     #endregion
 
@@ -172,7 +184,7 @@ public class Player : MonoBehaviour
         sound = GetComponent<AudioSource>();
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         currentTeam = Teams.team1;
         team1Army = 0;
         team2Army = 1;
@@ -266,7 +278,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.move;
         playerMode = PlayerAction.move;
         cancelButton.SetActive(true);
-        confirmButton.SetActive(true);
+        ConfirmButton.SetActive(true);
         attackButton.SetActive(false);
     }
 
@@ -275,7 +287,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.attack;
         moveButton.SetActive(false);
         cancelButton.SetActive(true);
-        confirmButton.SetActive(true);
+        ConfirmButton.SetActive(true);
         playerMode = PlayerAction.attack;
     }
 
@@ -284,7 +296,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         attackButton.SetActive(true);
         moveButton.SetActive(true);
     }
@@ -305,7 +317,7 @@ public class Player : MonoBehaviour
 
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         playerMode = PlayerAction.normal;
         attackButton.SetActive(true);
         moveButton.SetActive(true);
@@ -316,7 +328,7 @@ public class Player : MonoBehaviour
         btnAction = ButtonAction.none;
         playerMode = PlayerAction.normal;
         cancelButton.SetActive(false);
-        confirmButton.SetActive(false);
+        ConfirmButton.SetActive(false);
         moveButton.SetActive(false);
         attackButton.SetActive(false);
         TurnController();
