@@ -2,27 +2,22 @@
 using System.Collections;
 using NUnit.Framework;
 
-public class PlayerTest : MonoBehaviour
+[TestFixture]
+public class PlayerTest
 {
   
     [Test]
-    public void AttackTest()
+    public void MeleeUnitAttackTest()
     {
-        GameObject unit1 = new GameObject();
-        unit1.AddComponent<UnitProperties>();
-        unit1.GetComponent<UnitProperties>().Damage = 10;
-        unit1.GetComponent<UnitProperties>().AttackRange = 10;
-        unit1 = GetComponent<Player>().SelectedUnit;
+        MeleeUnit testMeleeAttacker = new MeleeUnit(100, 10, 10, float.MaxValue);
+        MeleeUnit testDefender = new MeleeUnit(100, 10, 10, float.MaxValue);
 
-        Player unit2 = new Player();
-        unit2.SelectedOther.AddComponent<UnitProperties>();
-        unit2.SelectedOther.GetComponent<UnitProperties>().Health = 100;
-
+        testMeleeAttacker.Attack(testDefender);
         
         int expected = 90;
-        int actual = unit2.GetComponent<UnitProperties>().Health;
+        int actual = testDefender.Health;
+
 
         Assert.AreEqual(expected, actual);
-
     }
 }

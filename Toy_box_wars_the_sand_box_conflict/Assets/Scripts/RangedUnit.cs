@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class RangedUnit : UnitProperties
 {
@@ -18,11 +19,11 @@ public class RangedUnit : UnitProperties
         this.actionPoints = actionPoints;
         this.attackRange = attackRange;
     }
-
-
+    
     // Use this for initialization
     void Start()
     {
+        _audio = GetComponent<AudioSource>();
         health = 10;
         damage = 10;
         actionPoints = 5;
@@ -33,5 +34,20 @@ public class RangedUnit : UnitProperties
     void Update()
     {
 
+    }
+
+    public override void Attack(UnitProperties target)
+    {
+        
+    }
+
+    public override void Move()
+    {
+
+
+    }
+    public override IEnumerator PlaySoundTest()
+    {
+        yield return new WaitForSeconds(_audio.clip.length);
     }
 }

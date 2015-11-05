@@ -14,13 +14,6 @@ public class Player : MonoBehaviour
     private int team2Army;
     public Vector3 tempDestination; // temporary variable for movement testing. Should be removed later.
     private PlayerAction playerMode;
-    private AudioSource sound;
-
-    [SerializeField]
-    private AudioClip shot;
-    [SerializeField]
-    private AudioClip gunCock;
-
 
     #region button refs
     [SerializeField]
@@ -35,7 +28,7 @@ public class Player : MonoBehaviour
     private GameObject cancelButton;
     #endregion
 
-    #region Properties
+     #region Properties
 
     /// <summary>
     /// Get/Set property for selected unit
@@ -181,7 +174,6 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        sound = GetComponent<AudioSource>();
         btnAction = ButtonAction.none;
         cancelButton.SetActive(false);
         ConfirmButton.SetActive(false);
@@ -238,20 +230,19 @@ public class Player : MonoBehaviour
     /// <summary>
     /// needed Attack code stuff
     /// </summary>
-    private void Attack()
+    private void AttackHandler()
     {
         UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
         UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
         float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
-            // attack stuff when in attack range
-            StartCoroutine(PlaySoundTest());
+            // attack stuff when in attack range           
 
-            osProp.Health -= sProp.Damage;
-            sProp.ActionPoints -= sProp.AttackCost;
+            sProp.Attack(osProp);
 
-
+            //osProp.Health -= sProp.Damage;
+            //sProp.ActionPoints -= sProp.AttackCost   
 
             if (osProp.Health <= 0)
             {
@@ -259,16 +250,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    private IEnumerator PlaySoundTest()
-    {
-        sound.clip = gunCock;
-        sound.Play();
-        Debug.Log("Gun cock just played!");
-        yield return new WaitForSeconds(sound.clip.length);
-        sound.clip = shot;
-        sound.Play();
-        Debug.Log("Gun shot just played!"); ;
-    }
+ 
 
 
 
@@ -309,7 +291,7 @@ public class Player : MonoBehaviour
                 Movement();
                 break;
             case ButtonAction.attack:
-                Attack();
+                AttackHandler();
                 break;
             default:
                 break;

@@ -15,6 +15,7 @@ public class VehicleUnit : UnitProperties {
     // Use this for initialization
 	void Start ()
     {
+        _audio = GetComponent<AudioSource>();
         health = 200;
         damage = 20;
         actionPoints = 5;
@@ -25,4 +26,19 @@ public class VehicleUnit : UnitProperties {
 	void Update () {
 	
 	}
+
+    public override void Attack(UnitProperties target)
+    {
+        
+    }
+
+    public override void Move()
+    {
+       
+    }
+
+    public override IEnumerator PlaySoundTest()
+    {
+        yield return new WaitForSeconds(_audio.clip.length);
+    }
 }

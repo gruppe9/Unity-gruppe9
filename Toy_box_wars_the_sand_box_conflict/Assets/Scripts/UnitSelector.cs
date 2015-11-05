@@ -115,8 +115,19 @@ public class UnitSelector : MonoBehaviour
             {
                 playerComponent.SelectedOther.GetComponent<Renderer>().material.color = Color.white;
             }
+
             playerComponent.SelectedOther = hit.collider.gameObject;
-            hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+
+            //Deselects targeted unit if that unit if futher away than the selected unit's attack range
+            if (Vector3.Distance(playerComponent.SelectedUnit.transform.position, playerComponent.SelectedOther.transform.position) <= playerComponent.SelectedUnit.GetComponent<UnitProperties>().AttackRange)
+            {                
+                hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+            }
+            else
+            {
+                DeselectUnit();
+            }
+
         }
     }
 

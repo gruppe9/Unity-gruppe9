@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UnitProperties : MonoBehaviour {
+public abstract class UnitProperties : MonoBehaviour {
 
     #region Fields
+    [SerializeField]
+    protected AudioClip attackSoundSFX;
+    [SerializeField]
+    protected AudioClip attackBuildUpSFX;
     [SerializeField]
     protected int health;
     [SerializeField]
@@ -18,6 +22,7 @@ public class UnitProperties : MonoBehaviour {
     protected int attackCost;
     [SerializeField]
     protected int movementCost;
+    protected AudioSource _audio;
     #endregion
 
     #region Properties
@@ -128,4 +133,8 @@ public class UnitProperties : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public abstract void Attack(UnitProperties target);
+    public abstract void Move();
+    public abstract IEnumerator PlaySoundTest();
 }
