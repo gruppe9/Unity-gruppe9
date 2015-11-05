@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 
     private GameObject selectedUnit;
     private GameObject selectedOther;
-    private GameObject latestSelected;
     private Teams currentTeam;
     private ButtonAction btnAction;
     private int team1Army;
@@ -60,22 +59,6 @@ public class Player : MonoBehaviour
         set
         {
             selectedOther = value;
-        }
-    }
-
-    /// <summary>
-    /// Get/Set property for the latest selected unit (good for showing ui)
-    /// </summary>
-    public GameObject LatestSelected
-    {
-        get
-        {
-            return latestSelected;
-        }
-
-        set
-        {
-            latestSelected = value;
         }
     }
 
@@ -185,12 +168,6 @@ public class Player : MonoBehaviour
         moveButton.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// baiscally ends the current team's turn.
     /// </summary>
@@ -222,7 +199,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// needed Movement code stuff
     /// </summary>
-    private void Movement()
+    private void MovementHandler()
     {
 
     }
@@ -288,7 +265,7 @@ public class Player : MonoBehaviour
         switch (btnAction)
         {
             case ButtonAction.move:
-                Movement();
+                MovementHandler();
                 break;
             case ButtonAction.attack:
                 AttackHandler();

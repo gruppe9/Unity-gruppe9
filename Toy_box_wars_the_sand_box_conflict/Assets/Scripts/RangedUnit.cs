@@ -30,17 +30,10 @@ public class RangedUnit : UnitProperties
         attackRange = 15;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override void Attack(UnitProperties target)
     {
         
     }
-
     public override void Move()
     {
 

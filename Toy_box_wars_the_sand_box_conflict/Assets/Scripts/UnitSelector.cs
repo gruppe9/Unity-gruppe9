@@ -13,7 +13,6 @@ public class UnitSelector : MonoBehaviour
     {
         playerComponent = GetComponent<Player>();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -29,26 +28,29 @@ public class UnitSelector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // raycasting stuff
-            touchPosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //For testing on pc
+            mouseClickPosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            //For build on android. Also copy in if statements below instead of mouseClickPosition
+            //touchPosition = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
             switch (playerComponent.PlayerMode)
             {
                 case PlayerAction.normal:
-                    if (Physics.Raycast(touchPosition, out hit))
+                    if (Physics.Raycast(mouseClickPosition, out hit))
                     {
                         SelectUnit();
                     }
                     break;
                 case PlayerAction.attack:
-                    if (Physics.Raycast(touchPosition, out hit))
+                    if (Physics.Raycast(mouseClickPosition, out hit))
                     {
                         AttackMode();
                         playerComponent.ConfirmButton.SetActive(true);
                     }
                     break;
                 case PlayerAction.move:
-                    if (Physics.Raycast(touchPosition, out hit))
+                    if (Physics.Raycast(mouseClickPosition, out hit))
                     {
                         MoveMode();
                     }
@@ -59,22 +61,30 @@ public class UnitSelector : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Highlights/Selects a unit if the player touches the unit on the screen.
+    /// </summary>
     private void SelectUnit()
     {
         //Selects the unit as the players selected unit, if the given unit isn't already selected.
         if (hit.collider.gameObject != playerComponent.SelectedUnit)
         {
+            //Sets the color back to white if a new player unit is selected
             if (playerComponent.SelectedUnit != null)
                 playerComponent.SelectedUnit.GetComponent<Renderer>().material.color = Color.white;
 
-            playerComponent.SelectedUnit = hit.collider.gameObject;
+
+            playerComponent.SelectedUnit = hit.collider.gameObject; // the selectedunit is the on the that the player pressed on.
+
+            //If the currentteam value equals the tag on the selected unit it is a friendly unit. 
+            //Else is it a enemy unit
             if (playerComponent.CurrentTeam.ToString() == hit.collider.gameObject.tag)
             {
                 hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.green;
                 playerComponent.AttackButton.SetActive(true);
                 playerComponent.MoveButton.SetActive(true);
             }
-            else
+            else 
             {
                 hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 playerComponent.AttackButton.SetActive(false);
@@ -82,7 +92,9 @@ public class UnitSelector : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Used to deselect enemy unit after attacking them.
+    /// </summary>
     public void DeselectUnit()
     {
         if (playerComponent.SelectedOther != null)
@@ -90,6 +102,10 @@ public class UnitSelector : MonoBehaviour
 
         playerComponent.SelectedOther = null;
     }
+    /// <summary>
+    /// Used to deselect all selected units since the only call to the method if after checking if the endturnbutton is pressed 
+    /// Which would mean the team1 becomes team2 and team2 becomes team1. 
+    /// </summary>
     public void DeselectUnitAll()
     {
         if (playerComponent.SelectedOther != null)
@@ -130,7 +146,6 @@ public class UnitSelector : MonoBehaviour
 
         }
     }
-
     /// <summary>
     /// Makes sure that no other unit can be selected when pressed on Move button. 
     /// See Move>ButtonAction in Player class.

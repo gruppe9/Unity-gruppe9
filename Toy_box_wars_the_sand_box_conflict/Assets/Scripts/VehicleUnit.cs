@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VehicleUnit : UnitProperties {
-
+public class VehicleUnit : UnitProperties
+{
 	
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base (health, damage, actionPoints, attackRange)
     {
@@ -22,11 +22,7 @@ public class VehicleUnit : UnitProperties {
         attackRange = 15;
 	}
 	
-	// Update is called once per frame
-	void Update () {
 	
-	}
-
     public override void Attack(UnitProperties target)
     {
         

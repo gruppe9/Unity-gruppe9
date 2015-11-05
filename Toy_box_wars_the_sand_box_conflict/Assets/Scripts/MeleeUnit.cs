@@ -13,7 +13,7 @@ public class MeleeUnit : UnitProperties {
     }
 
     // Use this for initialization
-    void Start ()
+     void Start ()
     {
         _audio = GetComponent<AudioSource>();
         health = 100;
@@ -22,11 +22,6 @@ public class MeleeUnit : UnitProperties {
         attackRange = 7;
     }
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public override void Attack(UnitProperties target)
     {
         target.Health -= damage;
