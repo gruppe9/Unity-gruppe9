@@ -38,10 +38,10 @@ public class MeleeUnit : UnitProperties {
 
     public override IEnumerator PlaySoundTest()
     {
-        _audio.clip = attackBuildUpSFX;
+        _audio.clip = moveSFX;
         _audio.Play();
         yield return new WaitForSeconds(_audio.clip.length);
-        _audio.clip = attackSoundSFX;
+        _audio.clip = attackSFX;
         _audio.Play();
     }
 
