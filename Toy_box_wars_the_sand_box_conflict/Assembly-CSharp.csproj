@@ -46,13 +46,16 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ArmySaves.cs" />
+     <Compile Include="Assets\Scripts\Controllers\Player.cs" />
+     <Compile Include="Assets\Scripts\Controllers\UnitSelector.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
-     <Compile Include="Assets\Scripts\MeleeUnit.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\RangedUnit.cs" />
-     <Compile Include="Assets\Scripts\UnitProperties.cs" />
-     <Compile Include="Assets\Scripts\UnitSelector.cs" />
-     <Compile Include="Assets\Scripts\VehicleUnit.cs" />
+     <Compile Include="Assets\Scripts\Maps\TileMap.cs" />
+     <Compile Include="Assets\Scripts\Maps\TileMapMouse.cs" />
+     <Compile Include="Assets\Scripts\StartMenu.cs" />
+     <Compile Include="Assets\Scripts\Units\MeleeUnit.cs" />
+     <Compile Include="Assets\Scripts\Units\RangedUnit.cs" />
+     <Compile Include="Assets\Scripts\Units\UnitProperties.cs" />
+     <Compile Include="Assets\Scripts\Units\VehicleUnit.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionComponent.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionException.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\Assertions.cs" />
@@ -76,11 +79,6 @@
      <Compile Include="Assets\UnityTestTools\Assertions\MemberResolver.cs" />
      <Compile Include="Assets\UnityTestTools\Common\ITestResult.cs" />
      <Compile Include="Assets\UnityTestTools\Common\TestResultState.cs" />
-     <Compile Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Scripts\GameScore.cs" />
-     <Compile Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\CodeBasedAssertionExample.cs" />
-     <Compile Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\CustomComponent.cs" />
-     <Compile Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\DynamicIntegrationTest.cs" />
-     <Compile Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\ThrowCustomException.cs" />
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\DTOFormatter.cs" />
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\ITestRunnerCallback.cs" />
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\IntegrationTest.cs" />
@@ -95,33 +93,13 @@
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\TestRunnerCallbackList.cs" />
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\TestRunnerConfigurator.cs" />
      <Compile Include="Assets\UnityTestTools\IntegrationTestsFramework\TestingAssets\CallTesting.cs" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Cursor.shader" />
      <None Include="Assets\UnityTestTools\LICENSE.txt" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditiveBlend.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Additive.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\Fallback.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Multiply.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\CharacterSelfIlluminationReflective.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\PlanarRealtimeReflection.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\ReflectiveBackgroundPlanar.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\EnemySelfIlluminationReflective.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\AngryInclude.cginc" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditive.shader" />
      <None Include="Assets\UnityTestTools\changelog.txt" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\LaserScope.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\SuperSimpleSelfIllumination.shader" />
-     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleBlend.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>D:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
