@@ -5,7 +5,7 @@ public class StartMenu : MonoBehaviour {
 
 	public void StartGame()
     {
-        Application.LoadLevel("UI_scene");
+        Application.LoadLevel("Map_scene");
         //Application.UnloadLevel("Startmenu_scene");    
     }
 }
