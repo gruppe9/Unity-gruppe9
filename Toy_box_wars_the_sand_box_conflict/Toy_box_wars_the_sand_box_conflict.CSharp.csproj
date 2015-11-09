@@ -69,14 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArmySaves.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player.cs" />
+    <Compile Include="Assets\Scripts\Controllers\UnitSelector.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
-    <Compile Include="Assets\Scripts\MeleeUnit.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\RangedUnit.cs" />
+    <Compile Include="Assets\Scripts\Maps\TileMap.cs" />
+    <Compile Include="Assets\Scripts\Maps\TileMapMouse.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
-    <Compile Include="Assets\Scripts\UnitProperties.cs" />
-    <Compile Include="Assets\Scripts\UnitSelector.cs" />
-    <Compile Include="Assets\Scripts\VehicleUnit.cs" />
+    <Compile Include="Assets\Scripts\Units\MeleeUnit.cs" />
+    <Compile Include="Assets\Scripts\Units\RangedUnit.cs" />
+    <Compile Include="Assets\Scripts\Units\UnitProperties.cs" />
+    <Compile Include="Assets\Scripts\Units\VehicleUnit.cs" />
     <Compile Include="Assets\UnityTestTools\Assertions\AssertionComponent.cs" />
     <Compile Include="Assets\UnityTestTools\Assertions\AssertionException.cs" />
     <Compile Include="Assets\UnityTestTools\Assertions\Assertions.cs" />
