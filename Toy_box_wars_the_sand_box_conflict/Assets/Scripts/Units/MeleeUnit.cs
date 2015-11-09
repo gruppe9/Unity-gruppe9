@@ -26,7 +26,8 @@ public class MeleeUnit : UnitProperties {
     {
         target.Health -= damage;
 
-        StartCoroutine(PlaySoundTest());
+        _audio.clip = attackSFX;
+        _audio.Play();
 
         actionPoints -= attackCost;
     }
@@ -35,15 +36,4 @@ public class MeleeUnit : UnitProperties {
     {
         GetComponent<NavMeshAgent>().SetDestination(movePoint);
     }
-
-    public override IEnumerator PlaySoundTest()
-    {
-        _audio.clip = moveSFX;
-        _audio.Play();
-        yield return new WaitForSeconds(_audio.clip.length);
-        _audio.clip = attackSFX;
-        _audio.Play();
-    }
-
-
 }

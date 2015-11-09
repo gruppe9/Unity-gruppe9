@@ -138,5 +138,4 @@ public abstract class UnitProperties : MonoBehaviour {
 
     public abstract void Attack(UnitProperties target);
     public abstract void Move(Vector3 movePoint);
-    public abstract IEnumerator PlaySoundTest();
 }

@@ -34,7 +34,8 @@ public class RangedUnit : UnitProperties
     {
         target.Health -= damage;
 
-        StartCoroutine(PlaySoundTest());
+        _audio.clip = attackSFX;
+        _audio.Play();
 
         actionPoints -= attackCost;
     }
@@ -42,13 +43,5 @@ public class RangedUnit : UnitProperties
     {
 
 
-    }
-    public override IEnumerator PlaySoundTest()
-    {
-        _audio.clip = moveSFX;
-        _audio.Play();
-        yield return new WaitForSeconds(_audio.clip.length);
-        _audio.clip = attackSFX;
-        _audio.Play();
     }
 }

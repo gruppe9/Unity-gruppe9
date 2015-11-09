@@ -27,7 +27,8 @@ public class VehicleUnit : UnitProperties
     {
          target.Health -= damage;
 
-        StartCoroutine(PlaySoundTest());
+        _audio.clip = attackSFX;
+        _audio.Play();
 
         actionPoints -= attackCost;  
     }
@@ -35,14 +36,5 @@ public class VehicleUnit : UnitProperties
     public override void Move(Vector3 movePoint)
     {
        
-    }
-
-    public override IEnumerator PlaySoundTest()
-    {
-        _audio.clip = moveSFX;
-        _audio.Play();
-        yield return new WaitForSeconds(_audio.clip.length);
-        _audio.clip = attackSFX;
-        _audio.Play();
     }
 }
