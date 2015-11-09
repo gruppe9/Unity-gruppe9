@@ -236,8 +236,6 @@ public class Player : MonoBehaviour
         // we need to remove action points depending on the distance traveled
         // this code used to work. However, ripped from UnitSelector, moveDistance doesn't exist.
         //unitProp.ActionPoints -= (int)moveDistance * unitProp.MovementCost;
-
-
     }
 
     /// <summary>
