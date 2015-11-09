@@ -126,19 +126,6 @@ public abstract class UnitProperties : MonoBehaviour
             movementCost = value;
         }
     }
-
-    public bool IsAlive
-    {
-        get
-        {
-            return isAlive;
-        }
-
-        set
-        {
-            isAlive = value;
-        }
-    }
     #endregion
 
     public UnitProperties(int health, int damage, int actionPoints, float attackRange)

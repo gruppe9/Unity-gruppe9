@@ -24,12 +24,26 @@ public class MeleeUnit : UnitProperties {
 	
     public override void Attack(UnitProperties target)
     {
-        target.Health -= damage;
+        if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
+        {
+            target.Health -= damage;
+            actionPoints -= attackCost;
 
-        _audio.clip = attackSFX;
-        _audio.Play();
-
-        actionPoints -= attackCost;
+            //Sound stuff
+            if (_audio != null && _audio.clip != null)
+            {
+                _audio.clip = attackSFX;
+                _audio.Play();
+            }
+            else
+            {
+                Debug.Log("Error 31: Check Sound Source/Clip on melee unit");
+            }
+        }
+        else
+        {
+            Debug.Log("Error 520: Melee unit not enough action points - Or damage is less than zero");
+        }
     }
 
     public override void Move(Vector3 movePoint)

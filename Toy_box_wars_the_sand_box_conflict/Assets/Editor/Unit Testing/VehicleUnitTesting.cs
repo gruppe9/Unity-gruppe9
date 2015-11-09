@@ -67,7 +67,6 @@ public class VehicleUnitTesting
         int actual = testDefender.Health;
 
         Assert.AreEqual(expected, actual);
-        Assert.False(testDefender.IsAlive);
     }
 
     [Test]
