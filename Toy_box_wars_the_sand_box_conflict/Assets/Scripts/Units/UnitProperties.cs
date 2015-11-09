@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class UnitProperties : MonoBehaviour {
+public abstract class UnitProperties : MonoBehaviour
+{
 
     #region Fields
     [SerializeField]
@@ -37,7 +38,14 @@ public abstract class UnitProperties : MonoBehaviour {
 
         set
         {
-            health = value;
+            if (value < 0)
+            {
+                health = 0;
+            }
+            else
+            {
+                health = value;
+            }
         }
     }
 
@@ -124,17 +132,18 @@ public abstract class UnitProperties : MonoBehaviour {
     {
 
     }
-    
+
     // Use this for initialization
-	void Start ()
+    void Start()
     {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public abstract void Attack(UnitProperties target);
     public abstract void Move(Vector3 movePoint);
