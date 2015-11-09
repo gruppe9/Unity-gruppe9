@@ -14,8 +14,6 @@ public class Player : MonoBehaviour
     private int team2Army;
     private Vector3 moveDestination;
     private PlayerAction playerMode;
-    private UnitProperties sProp;
-    private UnitProperties osProp;
 
     #region Button refs
     [SerializeField]
@@ -238,8 +236,6 @@ public class Player : MonoBehaviour
         // we need to remove action points depending on the distance traveled
         // this code used to work. However, ripped from UnitSelector, moveDistance doesn't exist.
         //unitProp.ActionPoints -= (int)moveDistance * unitProp.MovementCost;
-
-
     }
 
     /// <summary>
@@ -247,8 +243,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void AttackHandler()
     {
-        sProp = selectedUnit.GetComponent<UnitProperties>();
-        osProp = selectedOther.GetComponent<UnitProperties>();
+        UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
+        UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
         //The distance between selectedunit and selectedother
         float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
 

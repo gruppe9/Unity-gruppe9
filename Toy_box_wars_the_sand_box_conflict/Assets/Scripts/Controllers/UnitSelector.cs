@@ -55,14 +55,16 @@ public class UnitSelector : MonoBehaviour
                 case PlayerAction.move:
                     if (Physics.Raycast(mouseClickPosition, out hit))
                     {
-                        if (playerComponent.MoveDestination != Vector3.zero)
-                        {
-                            playerComponent.ConfirmButton.SetActive(true);
-                        }
                         if (playerComponent.MoveDestination == Vector3.zero)
                         {
                             MoveMode();
                         }
+                        if (playerComponent.MoveDestination != Vector3.zero)
+                        {
+                            playerComponent.ConfirmButton.SetActive(true);
+                        }
+                        //MoveMode();
+                        //playerComponent.ConfirmButton.SetActive(true);
                     }
                     break;
                 default:

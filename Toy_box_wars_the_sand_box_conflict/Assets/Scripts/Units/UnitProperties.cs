@@ -5,11 +5,9 @@ public abstract class UnitProperties : MonoBehaviour {
 
     #region Fields
     [SerializeField]
-    protected AudioClip attackSFX;
+    protected AudioClip attackSoundSFX;
     [SerializeField]
-    protected AudioClip moveSFX;
-    [SerializeField]
-    protected AudioClip deathSFX;
+    protected AudioClip attackBuildUpSFX;
     [SerializeField]
     protected int health;
     [SerializeField]
