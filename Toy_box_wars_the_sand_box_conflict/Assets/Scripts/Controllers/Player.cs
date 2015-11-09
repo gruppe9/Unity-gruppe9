@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private int team2Army;
     private Vector3 moveDestination;
     private PlayerAction playerMode;
+    private UnitProperties sProp;
+    private UnitProperties osProp;
 
     #region Button refs
     [SerializeField]
@@ -243,8 +245,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void AttackHandler()
     {
-        UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
-        UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
+        sProp = selectedUnit.GetComponent<UnitProperties>();
+        osProp = selectedOther.GetComponent<UnitProperties>();
         //The distance between selectedunit and selectedother
         float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
 

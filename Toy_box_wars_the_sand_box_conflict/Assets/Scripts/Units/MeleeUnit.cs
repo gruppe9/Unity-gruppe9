@@ -9,7 +9,7 @@ public class MeleeUnit : UnitProperties {
         this.health = health;
         this.damage = damage;
         this.actionPoints = actionPoints;
-        this.attackRange = attackRange;        
+        this.attackRange = attackRange;    
     }
 
     // Use this for initialization
