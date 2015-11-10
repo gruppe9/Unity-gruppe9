@@ -3,6 +3,7 @@ using System.Collections;
 
 public class VehicleUnit : UnitProperties
 {
+    private Animator anim;
 
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base(health, damage, actionPoints, attackRange)
     {
@@ -16,6 +17,8 @@ public class VehicleUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
+        _audio.clip = attackSFX;
         //health = 200;
         //damage = 20;
         //actionPoints = 5;
@@ -29,16 +32,7 @@ public class VehicleUnit : UnitProperties
             target.Health -= damage;
             actionPoints -= attackCost;
 
-            //Sound stuff
-            if (_audio != null && _audio.clip != null)
-            {
-                _audio.clip = attackSFX;
-                _audio.Play();
-            }
-            else
-            {
-                Debug.Log("Error 30: Check Sound Source/Clip on vehicle unit");
-            }
+            anim.SetTrigger("Attack");            
         }
         else
         {
@@ -49,5 +43,18 @@ public class VehicleUnit : UnitProperties
     public override void Move(Vector3 movePoint)
     {
 
+    }
+    public void PlayAttackSound()
+    {
+        //Sound stuff
+        if (_audio != null && _audio.clip != null)
+        {
+            _audio.clip = attackSFX;
+            _audio.Play();
+        }
+        else
+        {
+            Debug.Log("Error 30: Check Sound Source/Clip on vehicle unit");
+        }
     }
 }

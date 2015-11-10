@@ -4,6 +4,7 @@ using System;
 
 public class RangedUnit : UnitProperties
 {
+    private Animator anim;
 
     /// <summary>
     /// 
@@ -24,10 +25,12 @@ public class RangedUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
-        health = 100;
-        damage = 10;
-        actionPoints = 5;
-        attackRange = 15;
+        anim = GetComponent<Animator>();
+        _audio.clip = attackSFX;
+        //health = 100;
+        //damage = 10;
+        //actionPoints = 5;
+        //attackRange = 15;
     }
 
     public override void Attack(UnitProperties target)
