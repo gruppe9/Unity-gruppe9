@@ -3,6 +3,8 @@ using System.Collections;
 
 public class VehicleUnit : UnitProperties
 {
+    RaycastHit hit;
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base(health, damage, actionPoints, attackRange)
     {
@@ -20,29 +22,46 @@ public class VehicleUnit : UnitProperties
         //damage = 20;
         //actionPoints = 5;
         //attackRange = 15;
+        hit = new RaycastHit();
     }
 
     public override void Attack(UnitProperties target)
     {
-        if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
-        {
-            target.Health -= damage;
-            actionPoints -= attackCost;
+        Vector3 direction = target.transform.position - transform.position;
 
-            //Sound stuff
-            if (_audio != null && _audio.clip != null)
+        if (Physics.Raycast(transform.position, direction, out hit))
+        {
+            Debug.Log(hit.collider.gameObject.ToString());
+            Debug.DrawRay(transform.position, direction, Color.red);
+
+            if (hit.collider.tag == target.tag)
             {
-                _audio.clip = attackSFX;
-                _audio.Play();
+                if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
+                {
+                    target.Health -= damage;
+                    actionPoints -= attackCost;
+                    Debug.Log("Enemy hit");
+
+                    //Sound stuff
+                    if (_audio != null && _audio.clip != null)
+                    {
+                        _audio.clip = attackSFX;
+                        _audio.Play();
+                    }
+                    else
+                    {
+                        Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Error 520: Ranged unit not enough action points - Or damage is less than zero");
+                }
             }
             else
             {
-                Debug.Log("Error 30: Check Sound Source/Clip on vehicle unit");
+                Debug.Log("Hit something else");
             }
-        }
-        else
-        {
-            Debug.Log("Error 521: Vehicle unit not enough action points - Or damage is less than zero");
         }
     }
 
