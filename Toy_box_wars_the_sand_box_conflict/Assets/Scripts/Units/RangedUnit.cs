@@ -4,7 +4,9 @@ using System;
 
 public class RangedUnit : UnitProperties
 {
-    private Animator anim;
+
+    private RaycastHit hit;
+    private Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
     /// <summary>
     /// 
@@ -20,28 +22,58 @@ public class RangedUnit : UnitProperties
         this.actionPoints = actionPoints;
         this.attackRange = attackRange;
     }
-    
+
     // Use this for initialization
     void Start()
     {
         _audio = GetComponent<AudioSource>();
-        anim = GetComponent<Animator>();
-        _audio.clip = attackSFX;
         //health = 100;
         //damage = 10;
         //actionPoints = 5;
         //attackRange = 15;
+        hit = new RaycastHit();
     }
-
     public override void Attack(UnitProperties target)
     {
-        target.Health -= damage;
+        Vector3 direction = target.transform.position - transform.position;
 
-        _audio.clip = attackSFX;
-        _audio.Play();
+        if (Physics.Raycast(transform.position, direction, out hit))
+        {
+            Debug.Log(hit.collider.gameObject.ToString());
+            Debug.DrawRay(transform.position, direction, Color.red);
 
-        actionPoints -= attackCost;
+            if (hit.collider.tag == target.tag)
+            {
+                if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
+                {
+                    target.Health -= damage;
+                    actionPoints -= attackCost;
+                    Debug.Log("Enemy hit");
+
+                    //Sound stuff
+                    if (_audio != null && _audio.clip != null)
+                    {
+                        _audio.clip = attackSFX;
+                        _audio.Play();
+                    }
+                    else
+                    {
+                        Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Error 520: Ranged unit not enough action points - Or damage is less than zero");
+                }
+            }
+            else
+            {
+                Debug.Log("Hit something else");
+            }
+        }
+
     }
+
     public override void Move(Vector3 movePoint)
     {
 

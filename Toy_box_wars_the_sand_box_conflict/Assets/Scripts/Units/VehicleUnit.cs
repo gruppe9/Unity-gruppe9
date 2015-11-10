@@ -3,7 +3,8 @@ using System.Collections;
 
 public class VehicleUnit : UnitProperties
 {
-    private Animator anim;
+    RaycastHit hit;
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base(health, damage, actionPoints, attackRange)
     {
@@ -17,44 +18,55 @@ public class VehicleUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
-        anim = GetComponent<Animator>();
-        _audio.clip = attackSFX;
         //health = 200;
         //damage = 20;
         //actionPoints = 5;
         //attackRange = 15;
+        hit = new RaycastHit();
     }
 
     public override void Attack(UnitProperties target)
     {
-        if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
-        {
-            target.Health -= damage;
-            actionPoints -= attackCost;
+        Vector3 direction = target.transform.position - transform.position;
 
-            anim.SetTrigger("Attack");            
-        }
-        else
+        if (Physics.Raycast(transform.position, direction, out hit))
         {
-            Debug.Log("Error 521: Vehicle unit not enough action points - Or damage is less than zero");
+            Debug.Log(hit.collider.gameObject.ToString());
+            Debug.DrawRay(transform.position, direction, Color.red);
+
+            if (hit.collider.tag == target.tag)
+            {
+                if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
+                {
+                    target.Health -= damage;
+                    actionPoints -= attackCost;
+                    Debug.Log("Enemy hit");
+
+                    //Sound stuff
+                    if (_audio != null && _audio.clip != null)
+                    {
+                        _audio.clip = attackSFX;
+                        _audio.Play();
+                    }
+                    else
+                    {
+                        Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Error 520: Ranged unit not enough action points - Or damage is less than zero");
+                }
+            }
+            else
+            {
+                Debug.Log("Hit something else");
+            }
         }
     }
 
     public override void Move(Vector3 movePoint)
     {
 
-    }
-    public void PlayAttackSound()
-    {
-        //Sound stuff
-        if (_audio != null && _audio.clip != null)
-        {
-            _audio.clip = attackSFX;
-            _audio.Play();
-        }
-        else
-        {
-            Debug.Log("Error 30: Check Sound Source/Clip on vehicle unit");
-        }
     }
 }
