@@ -5,6 +5,7 @@ public class VehicleUnit : UnitProperties
 {
     RaycastHit hit;
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    private Animator anim;
 
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base(health, damage, actionPoints, attackRange)
     {
@@ -18,6 +19,8 @@ public class VehicleUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
+        _audio.clip = attackSFX;
         //health = 200;
         //damage = 20;
         //actionPoints = 5;
@@ -42,16 +45,7 @@ public class VehicleUnit : UnitProperties
                     actionPoints -= attackCost;
                     Debug.Log("Enemy hit");
 
-                    //Sound stuff
-                    if (_audio != null && _audio.clip != null)
-                    {
-                        _audio.clip = attackSFX;
-                        _audio.Play();
-                    }
-                    else
-                    {
-                        Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
-                    }
+                    anim.SetTrigger("Attack");           
                 }
                 else
                 {
@@ -68,5 +62,19 @@ public class VehicleUnit : UnitProperties
     public override void Move(Vector3 movePoint)
     {
 
+    }
+
+    public void PlayAttackSound()
+    {
+        //Sound stuff
+        if (_audio != null && _audio.clip != null)
+        {
+            _audio.clip = attackSFX;
+            _audio.Play();
+        }
+        else
+        {
+            Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
+        }
     }
 }

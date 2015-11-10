@@ -7,6 +7,7 @@ public class RangedUnit : UnitProperties
 
     private RaycastHit hit;
     private Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    private Animator anim;
 
     /// <summary>
     /// 
@@ -27,6 +28,8 @@ public class RangedUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
+        _audio.clip = attackSFX;
+        anim = GetComponent<Animator>();
         //health = 100;
         //damage = 10;
         //actionPoints = 5;
@@ -50,16 +53,7 @@ public class RangedUnit : UnitProperties
                     actionPoints -= attackCost;
                     Debug.Log("Enemy hit");
 
-                    //Sound stuff
-                    if (_audio != null && _audio.clip != null)
-                    {
-                        _audio.clip = attackSFX;
-                        _audio.Play();
-                    }
-                    else
-                    {
-                        Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
-                    }
+                    anim.SetTrigger("Attack");             
                 }
                 else
                 {
@@ -78,5 +72,18 @@ public class RangedUnit : UnitProperties
     {
 
 
+    }
+    public void PlayAttackSound()
+    {
+        //Sound stuff
+        if (_audio != null && _audio.clip != null)
+        {
+            _audio.clip = attackSFX;
+            _audio.Play();
+        }
+        else
+        {
+            Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
+        }
     }
 }

@@ -49,9 +49,10 @@ ModelImporter:
     4300006: Object003
     4300008: Object004
     4300010: Object005
-    7400000: Damage
+    7400000: CarDamage
     7400002: IdleTest
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -65,7 +66,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -73,7 +74,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Damage
+      name: CarDamage
       takeName: Take 001
       firstFrame: 101
       lastFrame: 155
