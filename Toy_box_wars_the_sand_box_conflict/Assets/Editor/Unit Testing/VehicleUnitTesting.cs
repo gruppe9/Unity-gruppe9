@@ -12,7 +12,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 90;
@@ -28,7 +28,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         MeleeUnit testDefender = new MeleeUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 90;
@@ -44,7 +44,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 90;
@@ -60,7 +60,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(2, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 0;
@@ -75,7 +75,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 5;
@@ -94,7 +94,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 15;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 10;
@@ -113,7 +113,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 0, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 0;
@@ -132,7 +132,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, -10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 5;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expedtedHP = 100;
@@ -147,7 +147,7 @@ public class VehicleUnitTesting
         VehicleUnit testAttacker = new VehicleUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 0;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 10;

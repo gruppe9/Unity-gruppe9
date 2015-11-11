@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private PlayerAction playerMode;
     private bool performingAction;
 
+    private RaycastHit hit;
+
 
     #region Button refs
     [SerializeField]
@@ -208,6 +210,7 @@ public class Player : MonoBehaviour
         playerMode = PlayerAction.normal;
         attackButton.SetActive(false);
         moveButton.SetActive(false);
+        hit = new RaycastHit();
     }
 
     /// <summary>
@@ -273,15 +276,30 @@ public class Player : MonoBehaviour
             Vector3 direction = selectedOther.transform.position - selectedUnit.transform.position;
             selectedUnit.transform.rotation = Quaternion.LookRotation(direction);
 
-            //Selectedunit attackting target/selectedOther
-            sProp.Attack(osProp);
-
-            //If the enemy unit has 0 or less health the unit is destroyed from the game. 
-            if (osProp.Health <= 0)
+            if (Physics.Raycast(sProp.transform.position, Vector3.forward, out hit))
             {
-                Destroy(selectedOther);
+                Debug.Log(hit.collider.gameObject.ToString());
+                Debug.DrawRay(sProp.transform.position, Vector3.forward, Color.red);
+
+                if (hit.collider.tag == osProp.tag)
+                {
+                    //Selectedunit attackting target/selectedOther
+                    sProp.Attack(osProp);
+                }
+                else
+                {
+                    Debug.Log("Hit something else");
+                }
             }
         }
+
+
+        //If the enemy unit has 0 or less health the unit is destroyed from the game. 
+        if (osProp.Health <= 0)
+        {
+            Destroy(selectedOther);
+        }
+
     }
 
     #region Buttons

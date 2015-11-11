@@ -5,12 +5,16 @@ using NUnit.Framework;
 [TestFixture]
 public class RangedUnitTesting
 {
+
     [Test]
     public void AgainstMeleeUnitAttackTest()
     {
         RangedUnit testAttacker = new RangedUnit(100, 10, 10, float.MaxValue);
         MeleeUnit testDefender = new MeleeUnit(100, 10, 10, float.MaxValue);
+
+
         testAttacker.AttackCost = 1;
+        testAttacker.IsNotTesting = false;
 
         testAttacker.Attack(testDefender);
 
@@ -26,6 +30,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 10, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 90;
@@ -40,7 +45,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 10, 10, float.MaxValue);
         VehicleUnit testDefender = new VehicleUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 90;
@@ -55,7 +60,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 101, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 0;
@@ -70,7 +75,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 10, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 3;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAC = 7;
@@ -88,7 +93,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 100, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 11;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 10;
@@ -107,7 +112,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, 100, 0, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
-
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 0;
@@ -126,6 +131,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, -100, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 1;
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expected = 100;
@@ -139,6 +145,7 @@ public class RangedUnitTesting
         RangedUnit testAttacker = new RangedUnit(100, -100, 10, float.MaxValue);
         RangedUnit testDefender = new RangedUnit(100, 10, 10, float.MaxValue);
         testAttacker.AttackCost = 0;
+        testAttacker.IsNotTesting = false;
         testAttacker.Attack(testDefender);
 
         int expectedAP = 10;

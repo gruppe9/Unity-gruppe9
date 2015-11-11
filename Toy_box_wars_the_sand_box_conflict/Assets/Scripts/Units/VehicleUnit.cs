@@ -31,33 +31,20 @@ public class VehicleUnit : UnitProperties
 
     public override void Attack(UnitProperties target)
     {
-        Vector3 direction = target.transform.position - transform.position;
-
-        if (Physics.Raycast(transform.position, direction, out hit))
+        if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
         {
-            Debug.Log(hit.collider.gameObject.ToString());
-            Debug.DrawRay(transform.position, direction, Color.red);
+            target.Health -= damage;
+            actionPoints -= attackCost;
+            Debug.Log("Enemy hit");
 
-            if (hit.collider.tag == target.tag)
-            {
-                if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
-                {
-                    target.Health -= damage;
-                    actionPoints -= attackCost;
-                    Debug.Log("Enemy hit");
-
-                    anim.SetTrigger("Attack");           
-                }
-                else
-                {
-                    Debug.Log("Error 520: Ranged unit not enough action points - Or damage is less than zero");
-                }
-            }
-            else
-            {
-                Debug.Log("Hit something else");
-            }
+            if (isNotTesting)
+                anim.SetTrigger("Attack");
         }
+        else
+        {
+            Debug.Log("Error 520: Ranged unit not enough action points - Or damage is less than zero");
+        }
+
     }
 
     public override void Move(Vector3 movePoint)
@@ -77,10 +64,5 @@ public class VehicleUnit : UnitProperties
         {
             Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
         }
-    }
-
-    public override IEnumerator PlaySoundTest()
-    {
-        throw new NotImplementedException();
     }
 }

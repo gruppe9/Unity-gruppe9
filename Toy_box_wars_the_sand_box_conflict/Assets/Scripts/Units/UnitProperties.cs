@@ -25,13 +25,18 @@ public abstract class UnitProperties : MonoBehaviour
     [SerializeField]
     protected int movementCost;
     protected AudioSource _audio;
+    protected bool isNotTesting = true;
 
     public List<Node> currentPath = null;
     public int tileX;
     public int tileZ;
 
-    private int timer = 0; // pathfinding timer
-    public int timerSet = 50; // what pathfinding-timer should be reset to
+    private float timer = 0; // pathfinding timer
+    public float timerSet = 50; // what pathfinding-timer should be reset to
+
+    protected Animator myAnimator;
+
+    private Vector3 lastFramePosition;
     #endregion
 
     #region Properties
@@ -44,7 +49,15 @@ public abstract class UnitProperties : MonoBehaviour
 
         set
         {
-            health = value;
+            if (value < 0)
+            {
+                health = 0;
+            }
+            else
+            {
+                health = value;
+            }
+
         }
     }
 
@@ -125,6 +138,19 @@ public abstract class UnitProperties : MonoBehaviour
             movementCost = value;
         }
     }
+
+    public bool IsNotTesting
+    {
+        get
+        {
+            return isNotTesting;
+        }
+
+        set
+        {
+            isNotTesting = value;
+        }
+    }
     #endregion
 
     public UnitProperties(int health, int damage, int actionPoints, float attackRange)
@@ -136,21 +162,24 @@ public abstract class UnitProperties : MonoBehaviour
     void Start()
     {
 
+        lastFramePosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         PathFinding();
+        RunAnimation();
     }
 
     void PathFinding()
     {
+
         if (currentPath != null) // check if we have a path
         {
             if (currentPath.Count > 0) // check if our path more than 0 points
             {
-                timer--; // decress timer by one (should probably add something with delta time)
+                timer -= (1 * Time.deltaTime); // decress timer by one (should probably add something with delta time)
                 if (timer <= 0)
                 {
                     // set the current point to move to
@@ -162,7 +191,32 @@ public abstract class UnitProperties : MonoBehaviour
         }
     }
 
+    void RunAnimation()
+    {
+        // we nicked this code from http://answers.unity3d.com/questions/285682/add-animation-to-a-navmeshagent-character.html
+        float distance = Vector3.Distance(lastFramePosition, transform.position);
+        lastFramePosition = transform.position;
+
+        float currentSpeed = Mathf.Abs(distance) / Time.deltaTime;
+
+        if (currentSpeed > 0.01f)
+        {
+            if (myAnimator == null)
+            {
+                myAnimator = GetComponent<Animator>();
+            }
+            myAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            if (myAnimator == null)
+            {
+                myAnimator = GetComponent<Animator>();
+            }
+            myAnimator.SetBool("isRunning", false);
+        }
+    }
+
     public abstract void Attack(UnitProperties target);
     public abstract void Move(Vector3 movePoint);
-    public abstract IEnumerator PlaySoundTest();
 }
