@@ -7,7 +7,7 @@ public abstract class UnitProperties : MonoBehaviour
 
     #region Fields
     [SerializeField]
-    protected AudioClip attackSoundSFX;
+    protected AudioClip attackSFX;
     [SerializeField]
     protected AudioClip attackBuildUpSFX;
     [SerializeField]
@@ -30,8 +30,8 @@ public abstract class UnitProperties : MonoBehaviour
     public int tileX;
     public int tileZ;
 
-    private int timer = 0;
-    public int timerSet = 50;
+    private int timer = 0; // pathfinding timer
+    public int timerSet = 50; // what pathfinding-timer should be reset to
     #endregion
 
     #region Properties
@@ -141,35 +141,23 @@ public abstract class UnitProperties : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentPath != null)
+        PathFinding();
+    }
+
+    void PathFinding()
+    {
+        if (currentPath != null) // check if we have a path
         {
-            if (currentPath.Count > 0)
+            if (currentPath.Count > 0) // check if our path more than 0 points
             {
-
-                //if (Vector3.Distance(transform.position, new Vector3(currentPath[0].x, 0, currentPath[0].z)) < 1)
-                //{
-                //    currentPath.RemoveAt(0);
-                //}
-                //else if (GetComponent<NavMeshAgent>().destination != new Vector3(currentPath[0].x, 0, currentPath[0].z))
-                //{
-                //    GetComponent<NavMeshAgent>().SetDestination(new Vector3(currentPath[0].x, 0, currentPath[0].z));
-                //}
-
-
-                Debug.Log("I have a path with: " + currentPath.Count + " points, ending at:" + currentPath[0].x + ", " + currentPath[0].z);
-                timer--;
+                timer--; // decress timer by one (should probably add something with delta time)
                 if (timer <= 0)
                 {
-                    Debug.Log("I'll try to move");
-                    foreach (Node item in currentPath)
-                    {
-                        Debug.Log(item.x + ", " + item.z);
-                    }
+                    // set the current point to move to
                     GetComponent<NavMeshAgent>().SetDestination(new Vector3(currentPath[0].x + MapStuff.Instance.tileSize / 1.75f - 0.25f, 0, currentPath[0].z + MapStuff.Instance.tileSize / 1.75f - 0.25f));
-                    currentPath.RemoveAt(0);
-                    timer = timerSet;
+                    currentPath.RemoveAt(0); // remove the point we're moveing to
+                    timer = timerSet; // reset timer
                 }
-
             }
         }
     }

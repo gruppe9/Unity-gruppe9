@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class VehicleUnit : UnitProperties
 {
@@ -76,5 +77,10 @@ public class VehicleUnit : UnitProperties
         {
             Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
         }
+    }
+
+    public override IEnumerator PlaySoundTest()
+    {
+        throw new NotImplementedException();
     }
 }

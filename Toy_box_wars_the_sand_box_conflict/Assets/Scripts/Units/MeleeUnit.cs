@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MeleeUnit : UnitProperties
 {
@@ -68,5 +69,10 @@ public class MeleeUnit : UnitProperties
     public override void Move(Vector3 movePoint)
     {
         GetComponent<NavMeshAgent>().SetDestination(movePoint);
+    }
+
+    public override IEnumerator PlaySoundTest()
+    {
+        throw new NotImplementedException();
     }
 }

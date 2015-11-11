@@ -8,6 +8,7 @@ public class MapStuff : MonoBehaviour
     public int mapSizeX;
     public int mapSizeZ;
     public int tileSize = 1;
+    public bool makeNodePillars;
 
     public GameObject node;
 
@@ -34,6 +35,7 @@ public class MapStuff : MonoBehaviour
     void Start()
     {
         GenerateNodes();
+        NodeAltering();
     }
 
     void GenerateNodes()
@@ -50,7 +52,8 @@ public class MapStuff : MonoBehaviour
                 graph[x, z].z = z * tileSize;
 
                 //// Placing a pillar at each node \\\\
-                Instantiate(node, new Vector3(x * tileSize, 0, z * tileSize), Quaternion.identity);
+                if(makeNodePillars)
+                    Instantiate(node, new Vector3(x * tileSize, 0, z * tileSize), Quaternion.identity);
                 //// Placing a pillar at each node \\\\
             }
         }
@@ -58,18 +61,6 @@ public class MapStuff : MonoBehaviour
         {
             for (int z = 0; z < mapSizeZ - 1; z++)
             {
-                /*
-                if (x > 0)
-                    graph[x, z].neighbours.Add(graph[x - 1, z]);
-                if (x < mapSizeX - 1)
-                    graph[x, z].neighbours.Add(graph[x + 1, z]);
-                if (z > 0)
-                    graph[x, z].neighbours.Add(graph[x, z - 1]);
-                if (z < mapSizeZ - 1)
-                    graph[x, z].neighbours.Add(graph[x, z + 1]);
-
-                */
-
                 //try left
                 if (x > 0)
                 {
@@ -191,6 +182,7 @@ public class MapStuff : MonoBehaviour
             foreach (Node v in u.neighbours)
             {
                 float alt = dist[u] + u.DistanceTo(v);
+                //float alt = dist[u] + CostToEnterTile(u, v);
                 if (alt < dist[v])
                 {
                     dist[v] = alt;
@@ -218,4 +210,54 @@ public class MapStuff : MonoBehaviour
 
         return currentPath;
     }
+
+    public float CostToEnterTile(Node source, Node target)
+    {
+        if (target.isWalkable == false)
+            return Mathf.Infinity;
+
+        float cost = target.nodeCost;
+
+        if (source != target)
+        {
+            // We are moving diagonally!  Fudge the cost for tie-breaking
+            // Purely a cosmetic thing!
+            cost += 0.001f;
+        }
+
+        return cost;
+
+    }
+
+    void NodeAltering()
+    {
+        List<Node> toBeExpensive = new List<Node>();
+        /*
+
+        // To remove nodes you must know they corrdinats in the graph
+
+        toBeExpensive.Add(graph[9, 10]);
+        toBeExpensive.Add(graph[9, 9]);
+        toBeExpensive.Add(graph[9, 8]);
+        toBeExpensive.Add(graph[9, 7]);
+        toBeExpensive.Add(graph[9, 6]);
+        toBeExpensive.Add(graph[9, 5]);
+        toBeExpensive.Add(graph[9, 4]);
+        toBeExpensive.Add(graph[9, 3]);
+        toBeExpensive.Add(graph[9, 2]);
+        toBeExpensive.Add(graph[9, 1]);
+        */
+
+        // Cat poop
+        toBeExpensive.Add(graph[8, 4]);
+        toBeExpensive.Add(graph[8, 3]);
+
+        foreach (Node item in toBeExpensive)
+        {
+            item.isWalkable = false;
+        }
+
+        toBeExpensive.Clear();
+    }
+
 }

@@ -86,4 +86,9 @@ public class RangedUnit : UnitProperties
             Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
         }
     }
+
+    public override IEnumerator PlaySoundTest()
+    {
+        throw new NotImplementedException();
+    }
 }

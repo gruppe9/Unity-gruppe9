@@ -53,7 +53,6 @@ public class TileMapMouse : MonoBehaviour
 
     }
 
-
     public Vector3 TileToMouse(Vector3 point)
     {
         int x = Mathf.FloorToInt(point.x / tileSize);
