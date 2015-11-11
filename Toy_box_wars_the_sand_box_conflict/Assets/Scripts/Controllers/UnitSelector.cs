@@ -9,6 +9,14 @@ public class UnitSelector : MonoBehaviour
     private Ray mouseClickPosition;
     private Ray touchPosition;
 
+    public Player PlayerComponent
+    {
+        get
+        {
+            return playerComponent;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
