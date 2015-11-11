@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private int team2Army;
     private Vector3 moveDestination;
     private PlayerAction playerMode;
+    private UnitProperties sProp;
+    private UnitProperties osProp;
 
     #region Button refs
     [SerializeField]
@@ -243,8 +245,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void AttackHandler()
     {
-        UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
-        UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
+        sProp = selectedUnit.GetComponent<UnitProperties>();
+        osProp = selectedOther.GetComponent<UnitProperties>();
         //The distance between selectedunit and selectedother
         float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
 
@@ -252,6 +254,10 @@ public class Player : MonoBehaviour
         //And the unit's actionpoints is greater than the cost of attacking - then an attack is possible.
         if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
         {
+            //Makes the selected unit turn to look at the target before attacking. Instant execution, no rotation time atm.
+            Vector3 direction = selectedOther.transform.position - selectedUnit.transform.position;
+            selectedUnit.transform.rotation = Quaternion.LookRotation(direction);
+
             //Selectedunit attackting target/selectedOther
             sProp.Attack(osProp);
 
