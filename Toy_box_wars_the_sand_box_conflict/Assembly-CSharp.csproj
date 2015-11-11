@@ -49,6 +49,8 @@
      <Compile Include="Assets\Scripts\Controllers\Player.cs" />
      <Compile Include="Assets\Scripts\Controllers\UnitSelector.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
+     <Compile Include="Assets\Scripts\Maps\MapStuff.cs" />
+     <Compile Include="Assets\Scripts\Maps\Node.cs" />
      <Compile Include="Assets\Scripts\Maps\TileMap.cs" />
      <Compile Include="Assets\Scripts\Maps\TileMapMouse.cs" />
      <Compile Include="Assets\Scripts\StartMenu.cs" />

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public abstract class UnitProperties : MonoBehaviour {
+public abstract class UnitProperties : MonoBehaviour
+{
 
     #region Fields
     [SerializeField]
@@ -23,6 +25,13 @@ public abstract class UnitProperties : MonoBehaviour {
     [SerializeField]
     protected int movementCost;
     protected AudioSource _audio;
+
+    public List<Node> currentPath = null;
+    public int tileX;
+    public int tileZ;
+
+    private int timer = 0;
+    public int timerSet = 50;
     #endregion
 
     #region Properties
@@ -122,17 +131,48 @@ public abstract class UnitProperties : MonoBehaviour {
     {
 
     }
-    
+
     // Use this for initialization
-	void Start ()
+    void Start()
     {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (currentPath != null)
+        {
+            if (currentPath.Count > 0)
+            {
+
+                //if (Vector3.Distance(transform.position, new Vector3(currentPath[0].x, 0, currentPath[0].z)) < 1)
+                //{
+                //    currentPath.RemoveAt(0);
+                //}
+                //else if (GetComponent<NavMeshAgent>().destination != new Vector3(currentPath[0].x, 0, currentPath[0].z))
+                //{
+                //    GetComponent<NavMeshAgent>().SetDestination(new Vector3(currentPath[0].x, 0, currentPath[0].z));
+                //}
+
+
+                Debug.Log("I have a path with: " + currentPath.Count + " points, ending at:" + currentPath[0].x + ", " + currentPath[0].z);
+                timer--;
+                if (timer <= 0)
+                {
+                    Debug.Log("I'll try to move");
+                    foreach (Node item in currentPath)
+                    {
+                        Debug.Log(item.x + ", " + item.z);
+                    }
+                    GetComponent<NavMeshAgent>().SetDestination(new Vector3(currentPath[0].x + MapStuff.Instance.tileSize / 1.75f - 0.25f, 0, currentPath[0].z + MapStuff.Instance.tileSize / 1.75f - 0.25f));
+                    currentPath.RemoveAt(0);
+                    timer = timerSet;
+                }
+
+            }
+        }
+    }
 
     public abstract void Attack(UnitProperties target);
     public abstract void Move(Vector3 movePoint);

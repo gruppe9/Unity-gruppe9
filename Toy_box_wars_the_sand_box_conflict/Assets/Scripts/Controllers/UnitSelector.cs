@@ -24,6 +24,7 @@ public class UnitSelector : MonoBehaviour
 
         PlayerActionSwitchCase();
     }
+
     private void PlayerActionSwitchCase()
     {
         if (Input.GetMouseButtonDown(0))
@@ -169,16 +170,22 @@ public class UnitSelector : MonoBehaviour
     private void MoveMode()
     {
         UnitProperties unitProp = playerComponent.SelectedUnit.GetComponent<UnitProperties>();
-        Vector3 positionTouched = hit.point; //Saving the position to move towards.
+        //Vector3 positionTouched = GetComponent<TileMapMouse>().TileToMouse(hit.point); //Saving the position to move towards.
+        //Debug.Log(positionTouched);
 
-        float moveDistance = Vector3.Distance(playerComponent.SelectedUnit.transform.position, positionTouched);
+        //float moveDistance = Vector3.Distance(playerComponent.SelectedUnit.transform.position, positionTouched);
+
+        //TileMap.Instance.GeneratePathTo(hit.point, unitProp);
 
         //Is the movedistance less than the number of actionpoints for the selected unit 
         //And is the movementcost less than the actionpoints for the selected unit
-        if (moveDistance < unitProp.ActionPoints && unitProp.MovementCost < unitProp.ActionPoints)
-        {
-            playerComponent.MoveDestination = positionTouched;
-        }
+        //if (moveDistance < unitProp.ActionPoints && unitProp.MovementCost < unitProp.ActionPoints)
+        //{
+        //playerComponent.MoveDestination = positionTouched;
+        //}
+
+        Vector3 positionTouched = GetComponent<TileMapMouse>().TileToMouse(hit.point); //Saving the position to move towards.
+        playerComponent.MoveDestination = positionTouched; //Send the position to move to in player
     }
 }
 

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(TileMap))]
 public class TileMapMouse : MonoBehaviour
 {
 
-    TileMap _tileMap;
+    float tileSize = 1;
+
+    public GameObject map;
 
     Vector3 currentTileCoord;
 
@@ -13,26 +14,27 @@ public class TileMapMouse : MonoBehaviour
 
     void Start()
     {
-        _tileMap = GetComponent<TileMap>();
+        tileSize = MapStuff.Instance.tileSize;
     }
 
+    /*
     // Update is called once per frame
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity))
         {
-            Debug.Log(_tileMap.tileSize);
-            Debug.Log(_tileMap.tileSize);
-            int x = Mathf.FloorToInt(hitInfo.point.x / _tileMap.tileSize);
-            int z = Mathf.FloorToInt(hitInfo.point.z / _tileMap.tileSize);
-            Debug.Log ("Tile: " + x + ", " + z);
+            //Debug.Log(_tileMap.tileSize);
+            //Debug.Log(_tileMap.tileSize);
+            int x = Mathf.FloorToInt(hitInfo.point.x / tileSize);
+            int z = Mathf.FloorToInt(hitInfo.point.z / tileSize);
+            Debug.Log("Tile: " + x + ", " + z);
 
             currentTileCoord.x = x;
             currentTileCoord.z = z;
 
-            selectionCube.transform.position = currentTileCoord * _tileMap.tileSize;
+            selectionCube.transform.position = currentTileCoord * tileSize;
         }
         else
         {
@@ -44,14 +46,29 @@ public class TileMapMouse : MonoBehaviour
             Debug.Log("Click!");
         }
     }
+    */
+
+    void Update()
+    {
+
+    }
+
+
+    public Vector3 TileToMouse(Vector3 point)
+    {
+        int x = Mathf.FloorToInt(point.x / tileSize);
+        int z = Mathf.FloorToInt(point.z / tileSize);
+        Debug.Log("Tile: " + x + ", " + z);
+
+        currentTileCoord.x = x * tileSize + MapStuff.Instance.tileSize / 1.75f - 0.25f;
+        currentTileCoord.z = z * tileSize + MapStuff.Instance.tileSize / 1.75f - 0.25f;
+        currentTileCoord.y = 2;
+
+        selectionCube.transform.position = currentTileCoord;
+        selectionCube.GetComponent<Renderer>().material.color = Color.red;
+
+        point.x = currentTileCoord.x;
+        point.z = currentTileCoord.z;
+        return point;
+    }
 }
-
-
-
-
-
-//movement hint
-//if (Input.GetMouseButton(1) && selectedUnit != null)
-//{
-//    selectedUnit.MoveToCoord(currentTileCoord.x, currentTileCoord.z);
-//}
