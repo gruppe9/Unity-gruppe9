@@ -266,24 +266,30 @@ public class Player : MonoBehaviour
         UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
         UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
         //The distance between selectedunit and selectedother
-        float targetDistance = Vector3.Distance(selectedUnit.transform.position, selectedOther.transform.position);
-
+        Debug.Log("Attack Check stuff");
         //When player has selected a friendly unit and it's range is less than the distance between the target and the unit. 
         //And the unit's actionpoints is greater than the cost of attacking - then an attack is possible.
-        if (selectedUnit != null && targetDistance < sProp.AttackRange && sProp.ActionPoints >= sProp.AttackCost)
+        if (selectedUnit != null && sProp.ActionPoints >= sProp.AttackCost)
         {
+            Debug.Log("1# check passed");
+
             //Makes the selected unit turn to look at the target before attacking. Instant execution, no rotation time atm.
             Vector3 direction = selectedOther.transform.position - selectedUnit.transform.position;
             selectedUnit.transform.rotation = Quaternion.LookRotation(direction);
 
-            if (Physics.Raycast(sProp.transform.position, Vector3.forward, out hit))
+            Debug.DrawRay(sProp.transform.position, direction, Color.red);
+            Debug.Log("2# Check (RayCast check)");
+            if (Physics.Raycast(sProp.transform.position, direction, out hit))
             {
+                Debug.Log("2# check passed");
+
                 Debug.Log(hit.collider.gameObject.ToString());
-                Debug.DrawRay(sProp.transform.position, Vector3.forward, Color.red);
+                Debug.DrawRay(sProp.transform.position, direction, Color.red);
 
                 if (hit.collider.tag == osProp.tag)
                 {
                     //Selectedunit attackting target/selectedOther
+                    sProp.IsNotTesting = true;
                     sProp.Attack(osProp);
                 }
                 else
@@ -291,7 +297,12 @@ public class Player : MonoBehaviour
                     Debug.Log("Hit something else");
                 }
             }
+            else
+            {
+                Debug.Log("2# check failed");
+            }
         }
+        Debug.Log("End of attack");
 
 
         //If the enemy unit has 0 or less health the unit is destroyed from the game. 
@@ -350,6 +361,7 @@ public class Player : MonoBehaviour
                 MovementHandler();
                 break;
             case ButtonAction.attack:
+                Debug.Log("Attack confirmed");
                 AttackHandler();
                 break;
             default:

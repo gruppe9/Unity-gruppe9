@@ -50,7 +50,7 @@ ModelImporter:
     4300008: Object004
     4300010: Object005
     7400000: CarDamage
-    7400002: IdleTest
+    7400002: CarIdle
     7400004: CarDrive
     9500000: //RootNode
     11100000: //RootNode
@@ -134,7 +134,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: IdleTest
+      name: CarIdle
       takeName: Take 001
       firstFrame: 0
       lastFrame: 0

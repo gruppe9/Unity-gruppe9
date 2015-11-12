@@ -32,12 +32,10 @@ public class RangedUnit : UnitProperties
         _audio = GetComponent<AudioSource>();
         _audio.clip = attackSFX;
         anim = GetComponent<Animator>();
-        //health = 100;
-        //damage = 10;
-        //actionPoints = 5;
-        //attackRange = 15;
         hit = new RaycastHit();
+        
     }
+
     public override void Attack(UnitProperties target)
     {
         //Vector3 direction = target.transform.position - transform.position;
@@ -48,8 +46,9 @@ public class RangedUnit : UnitProperties
             target.Health -= damage;
             actionPoints -= attackCost;
             Debug.Log("Enemy hit");
+            Debug.Log("isNotTesting " + isNotTesting);
 
-            if(isNotTesting)
+            if (isNotTesting)
                 anim.SetTrigger("Attack");
         }
         else
