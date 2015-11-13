@@ -7,7 +7,6 @@ public enum Teams
 {
     team1,
     team2
-
 }
 
 public enum ButtonAction

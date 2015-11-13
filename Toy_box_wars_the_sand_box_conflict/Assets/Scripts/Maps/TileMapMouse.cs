@@ -63,11 +63,17 @@ public class TileMapMouse : MonoBehaviour
         currentTileCoord.z = z * tileSize + MapStuff.Instance.tileSize / 1.75f - 0.25f;
         currentTileCoord.y = 2;
 
+        selectionCube.SetActive(true);
         selectionCube.transform.position = currentTileCoord;
         selectionCube.GetComponent<Renderer>().material.color = Color.red;
 
         point.x = currentTileCoord.x;
         point.z = currentTileCoord.z;
         return point;
+    }
+
+    public void KillPointer()
+    {
+        selectionCube.SetActive(false);
     }
 }

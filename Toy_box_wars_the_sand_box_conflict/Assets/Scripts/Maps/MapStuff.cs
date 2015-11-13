@@ -232,25 +232,44 @@ public class MapStuff : MonoBehaviour
     void NodeAltering()
     {
         List<Node> toBeExpensive = new List<Node>();
-        /*
-
-        // To remove nodes you must know they corrdinats in the graph
-
-        toBeExpensive.Add(graph[9, 10]);
-        toBeExpensive.Add(graph[9, 9]);
-        toBeExpensive.Add(graph[9, 8]);
-        toBeExpensive.Add(graph[9, 7]);
-        toBeExpensive.Add(graph[9, 6]);
-        toBeExpensive.Add(graph[9, 5]);
-        toBeExpensive.Add(graph[9, 4]);
-        toBeExpensive.Add(graph[9, 3]);
-        toBeExpensive.Add(graph[9, 2]);
-        toBeExpensive.Add(graph[9, 1]);
-        */
-
+        
         // Cat poop
-        toBeExpensive.Add(graph[8, 4]);
-        toBeExpensive.Add(graph[8, 3]);
+        toBeExpensive.Add(graph[8, 2]);
+
+        // bucket
+        toBeExpensive.Add(graph[4, 4]);
+
+        // skovl
+        toBeExpensive.Add(graph[4, 3]);
+
+        // sand castle
+        toBeExpensive.Add(graph[9,8]);
+        toBeExpensive.Add(graph[9,9]);
+        toBeExpensive.Add(graph[10,8]);
+        toBeExpensive.Add(graph[10,9]);
+        toBeExpensive.Add(graph[10,10]);
+        toBeExpensive.Add(graph[10,11]);
+        toBeExpensive.Add(graph[11,7]);
+        toBeExpensive.Add(graph[11,8]);
+        toBeExpensive.Add(graph[11,9]);
+        toBeExpensive.Add(graph[11,10]);
+        toBeExpensive.Add(graph[11,11]);
+        toBeExpensive.Add(graph[12, 7]);
+        toBeExpensive.Add(graph[12, 8]);
+        toBeExpensive.Add(graph[12, 9]);
+        toBeExpensive.Add(graph[12, 10]);
+        toBeExpensive.Add(graph[13, 9]);
+
+        // bold
+        toBeExpensive.Add(graph[4, 7]);
+        toBeExpensive.Add(graph[4, 8]);
+        toBeExpensive.Add(graph[5, 7]);
+        toBeExpensive.Add(graph[5, 8]);
+
+        // vandekande
+        toBeExpensive.Add(graph[6, 13]);
+        toBeExpensive.Add(graph[6, 13]);
+
 
         foreach (Node item in toBeExpensive)
         {

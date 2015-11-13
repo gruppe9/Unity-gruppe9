@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ArmySaves.cs" />
+     <Compile Include="Assets\Scripts\ArmySpawner.cs" />
      <Compile Include="Assets\Scripts\Controllers\Player.cs" />
      <Compile Include="Assets\Scripts\Controllers\UnitSelector.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />

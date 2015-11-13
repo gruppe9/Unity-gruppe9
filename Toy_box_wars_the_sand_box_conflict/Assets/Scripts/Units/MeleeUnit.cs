@@ -19,11 +19,11 @@ public class MeleeUnit : UnitProperties
     void Start()
     {
         _audio = GetComponent<AudioSource>();
-        //health = 100;
-        //damage = 10;
-        //actionPoints = 5;
-        //attackRange = 7;
+        anim = GetComponent<Animator>();
+        _audio.clip = attackSFX;
         hit = new RaycastHit();
+
+        EnterArmy();
     }
 
     public override void Attack(UnitProperties target)
@@ -31,9 +31,14 @@ public class MeleeUnit : UnitProperties
 
         if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
         {
+            if (isNotTesting)
+            {
+                lastTarget = target;
+                anim.SetTrigger("Attack");
+            }
             target.Health -= damage;
             actionPoints -= attackCost;
-            Debug.Log("Enemy hit");          
+            Debug.Log("Enemy hit");
         }
         else
         {

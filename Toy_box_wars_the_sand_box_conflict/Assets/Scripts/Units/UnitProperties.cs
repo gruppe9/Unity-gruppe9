@@ -26,6 +26,8 @@ public abstract class UnitProperties : MonoBehaviour
     protected int movementCost;
     protected AudioSource _audio;
     protected bool isNotTesting = true;
+    protected Animator anim;
+    protected UnitProperties lastTarget;
 
     public List<Node> currentPath = null;
     public int tileX;
@@ -161,7 +163,6 @@ public abstract class UnitProperties : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         lastFramePosition = transform.position;
     }
 
@@ -214,6 +215,23 @@ public abstract class UnitProperties : MonoBehaviour
                 myAnimator = GetComponent<Animator>();
             }
             myAnimator.SetBool("isRunning", false);
+        }
+    }
+
+    public void TakeDmg()
+    {
+        lastTarget.anim.SetTrigger("TakeDmg");
+    }
+
+    public void EnterArmy()
+    {
+        if (gameObject.tag == "team1")
+        {
+            ArmySaves.Armies[0].Add(gameObject);
+        }
+        if (gameObject.tag == "team2")
+        {
+            ArmySaves.Armies[1].Add(gameObject);
         }
     }
 

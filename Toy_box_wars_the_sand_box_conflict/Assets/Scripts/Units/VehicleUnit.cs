@@ -6,7 +6,7 @@ public class VehicleUnit : UnitProperties
 {
     RaycastHit hit;
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    private Animator anim;
+    
 
     public VehicleUnit(int health, int damage, int actionPoints, float attackRange) : base(health, damage, actionPoints, attackRange)
     {
@@ -27,18 +27,23 @@ public class VehicleUnit : UnitProperties
         //actionPoints = 5;
         //attackRange = 15;
         hit = new RaycastHit();
+
+        EnterArmy();
+
     }
 
     public override void Attack(UnitProperties target)
     {
         if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
         {
+            if (isNotTesting)
+            {
+                lastTarget = target;
+                anim.SetTrigger("Attack");
+            }
             target.Health -= damage;
             actionPoints -= attackCost;
             Debug.Log("Enemy hit");
-
-            if (isNotTesting)
-                anim.SetTrigger("Attack");
         }
         else
         {

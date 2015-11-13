@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Threading;
 
 public class RangedUnit : UnitProperties
 {
 
     private RaycastHit hit;
     private Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    private Animator anim;
 
     
 
@@ -33,23 +33,23 @@ public class RangedUnit : UnitProperties
         _audio.clip = attackSFX;
         anim = GetComponent<Animator>();
         hit = new RaycastHit();
-        
+
+        EnterArmy();
+
     }
 
     public override void Attack(UnitProperties target)
     {
-        //Vector3 direction = target.transform.position - transform.position;
-
-
         if (actionPoints >= attackCost && attackCost != 0 && damage >= 0)
         {
+            if (isNotTesting)
+            {
+                lastTarget = target;
+                anim.SetTrigger("Attack");
+            }
             target.Health -= damage;
             actionPoints -= attackCost;
             Debug.Log("Enemy hit");
-            Debug.Log("isNotTesting " + isNotTesting);
-
-            if (isNotTesting)
-                anim.SetTrigger("Attack");
         }
         else
         {
@@ -63,6 +63,7 @@ public class RangedUnit : UnitProperties
 
 
     }
+
     public void PlayAttackSound()
     {
         //Sound stuff
@@ -76,5 +77,4 @@ public class RangedUnit : UnitProperties
             Debug.Log("Error 31: Check Sound Source/Clip on Ranged unit");
         }
     }
-
 }

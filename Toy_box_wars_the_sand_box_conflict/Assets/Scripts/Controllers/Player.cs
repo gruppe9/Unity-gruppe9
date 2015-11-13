@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private Vector3 moveDestination;
     private PlayerAction playerMode;
     private bool performingAction;
+    private GameObject greenPointer;
+    private GameObject redPointer;
 
     private RaycastHit hit;
 
@@ -211,6 +213,14 @@ public class Player : MonoBehaviour
         attackButton.SetActive(false);
         moveButton.SetActive(false);
         hit = new RaycastHit();
+        greenPointer = GameObject.Find("Player/GreenPointer");
+        redPointer = GameObject.Find("Player/RedPointer");
+    }
+
+    void Update()
+    {
+        UpdateGreenPointer();
+        UpdateRedPointer();
     }
 
     /// <summary>
@@ -251,6 +261,18 @@ public class Player : MonoBehaviour
         PerformingAction = true;
         UnitProperties unitProp = selectedUnit.GetComponent<UnitProperties>();
         unitProp.currentPath = MapStuff.Instance.GeneratePath(moveDestination, unitProp);
+        if (unitProp.currentPath.Count != 0)
+        {
+            if (unitProp.currentPath.Count - 1 > unitProp.ActionPoints)
+            {
+                Debug.Log(unitProp.currentPath.Count - 1);
+                unitProp.currentPath = null;
+            }
+            else
+            {
+                unitProp.ActionPoints -= unitProp.currentPath.Count - 1;
+            }
+        }
         moveDestination = Vector3.zero;
         // we need to remove action points depending on the distance traveled
         // this code used to work. However, ripped from UnitSelector, moveDistance doesn't exist.
@@ -266,22 +288,20 @@ public class Player : MonoBehaviour
         UnitProperties sProp = selectedUnit.GetComponent<UnitProperties>();
         UnitProperties osProp = selectedOther.GetComponent<UnitProperties>();
         //The distance between selectedunit and selectedother
-        Debug.Log("Attack Check stuff");
         //When player has selected a friendly unit and it's range is less than the distance between the target and the unit. 
         //And the unit's actionpoints is greater than the cost of attacking - then an attack is possible.
-        if (selectedUnit != null && sProp.ActionPoints >= sProp.AttackCost)
+        if (selectedUnit != null)
         {
-            Debug.Log("1# check passed");
 
             //Makes the selected unit turn to look at the target before attacking. Instant execution, no rotation time atm.
             Vector3 direction = selectedOther.transform.position - selectedUnit.transform.position;
             selectedUnit.transform.rotation = Quaternion.LookRotation(direction);
 
+            Debug.Log("Ray");
             Debug.DrawRay(sProp.transform.position, direction, Color.red);
-            Debug.Log("2# Check (RayCast check)");
             if (Physics.Raycast(sProp.transform.position, direction, out hit))
             {
-                Debug.Log("2# check passed");
+                Debug.Log("Ray pass");
 
                 Debug.Log(hit.collider.gameObject.ToString());
                 Debug.DrawRay(sProp.transform.position, direction, Color.red);
@@ -297,12 +317,7 @@ public class Player : MonoBehaviour
                     Debug.Log("Hit something else");
                 }
             }
-            else
-            {
-                Debug.Log("2# check failed");
-            }
         }
-        Debug.Log("End of attack");
 
 
         //If the enemy unit has 0 or less health the unit is destroyed from the game. 
@@ -311,6 +326,56 @@ public class Player : MonoBehaviour
             Destroy(selectedOther);
         }
 
+    }
+
+    void UpdateGreenPointer()
+    {
+        if (selectedUnit != null)
+        {
+            Vector3 newPos = selectedUnit.transform.position;
+            newPos.y = 5;
+            if (selectedUnit.tag == currentTeam.ToString())
+            {
+                greenPointer.SetActive(true);
+                greenPointer.transform.position = newPos;
+            }
+        }
+        else
+        {
+            greenPointer.SetActive(false);
+        }
+    }
+
+    void UpdateRedPointer()
+    {
+        if (selectedUnit != null || selectedOther != null)
+        {
+            if (selectedUnit != null)
+            {
+                Vector3 newPos = selectedUnit.transform.position;
+                newPos.y = 5;
+                if (selectedUnit.tag == otherTeam.ToString())
+                {
+                    redPointer.SetActive(true);
+                    redPointer.transform.position = newPos;
+                }
+                else
+                {
+                    redPointer.SetActive(false);
+                }
+            }
+            if (selectedOther != null)
+            {
+                Vector3 newPos = selectedOther.transform.position;
+                newPos.y = 5;
+                redPointer.SetActive(true);
+                redPointer.transform.position = newPos;
+            }
+        }
+        else
+        {
+            redPointer.SetActive(false);
+        }
     }
 
     #region Buttons
@@ -348,6 +413,7 @@ public class Player : MonoBehaviour
         attackButton.SetActive(true);
         moveButton.SetActive(true);
         MoveDestination = Vector3.zero;
+        GetComponent<TileMapMouse>().KillPointer();
     }
 
     /// <summary>
@@ -361,7 +427,6 @@ public class Player : MonoBehaviour
                 MovementHandler();
                 break;
             case ButtonAction.attack:
-                Debug.Log("Attack confirmed");
                 AttackHandler();
                 break;
             default:
